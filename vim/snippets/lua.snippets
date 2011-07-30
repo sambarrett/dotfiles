@@ -1,0 +1,45 @@
+# print statement
+snippet pr
+	print(${1:"here"})
+# if condition
+snippet if
+	if (${1:--[[ TODO --]]}) then
+		${2:--TODO}
+	end
+# if-else condition
+snippet ifel
+	ifel (${1:--[[TODO --]]}) then
+		${2:--TODO}
+	else
+		${3:--TODO}
+	end
+# function definition
+snippet fun
+	function ${1:foo}(${2})
+		${3:--body}
+	end
+# stuff for Nao specific editing
+snippet PrimTask
+	PrimTask('${1:taskName}',{
+			init = true
+		})
+	function $1:run()
+		${2:--TODO: run code goes here}
+	end
+
+	function $1:finished()
+		${3:--TODO: finished code goes here}
+	end
+snippet CompTask
+	CompTask('${1:taskName}',{
+			init = true
+		})
+	function $1:choose(as)
+		${2:--TODO: choose code goes here}
+	end
+
+	function $1:finished()
+		${3:--TODO: finished code goes here}
+	end
+snippet ParaTask
+	ParaTask('${1:newTask}',{'${2:oldTask1}','${3:oldTask2}'})

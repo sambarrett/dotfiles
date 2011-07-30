@@ -1,0 +1,67 @@
+syntax on
+set ai
+"set si
+set ts=2
+set sw=2
+set hlsearch
+set mouse=a
+filetype plugin on
+filetype indent on
+set backspace=indent,eol,start
+set ruler
+set modeline
+let g:tex_flavor='latex'
+let g:miniBufExplMapWindowNavVim = 1
+set nospell
+set expandtab
+
+"autocmd Filetype tex set spell
+"au BufRead,BufNewFile *.txt set filetype=txt
+"autocmd Filetype txt set spell
+
+python << endpython
+import os, vim
+cwd = os.getcwd()
+naoHome = os.getenv('NAO_HOME')
+if len(naoHome) > 0:
+  prefix = os.path.commonprefix([cwd,naoHome])
+  if os.path.samefile(prefix,naoHome):
+    vim.command("set makeprg=$NAO_HOME/build/compile") 
+endpython
+
+" switch to directory of current file
+command! CD cd %:p:h
+
+" insert one character
+nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
+
+colorscheme darkzen
+
+"look for the tag file going up the directories
+set tags=./tags;/
+
+"start at same position
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+"Use F2 to toggle into paste mode
+nnoremap <F4> :set invpaste paste?<CR>
+set pastetoggle=<F4>
+set showmode
+
+"Toggle taglist pane
+nnoremap <silent> <F1> :TlistToggle<CR>
+
+"Toggle file tree pane
+nnoremap <silent> <F3> :NERDTreeToggle<CR>
+
+"Toggle buffer explorer
+nnoremap <silent> <F2> :TMiniBufExplorer<CR>
+
+inoremap hh <Esc>
+
+let snips_author = 'Samuel Barrett'
+
+
+let g:SuperTabDefaultCompletionType = "context"
