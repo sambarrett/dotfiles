@@ -23,7 +23,7 @@ python << endpython
 import os, vim
 cwd = os.getcwd()
 naoHome = os.getenv('NAO_HOME')
-if len(naoHome) > 0:
+if naoHome is not None:
   prefix = os.path.commonprefix([cwd,naoHome])
   if os.path.samefile(prefix,naoHome):
     vim.command("set makeprg=$NAO_HOME/build/compile") 
@@ -42,10 +42,10 @@ set tags=./tags;/
 
 "start at same position
 if has("autocmd")
-  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-"Use F2 to toggle into paste mode
+"toggle into paste mode
 nnoremap <F4> :set invpaste paste?<CR>
 set pastetoggle=<F4>
 set showmode
@@ -65,3 +65,16 @@ let snips_author = 'Samuel Barrett'
 
 
 let g:SuperTabDefaultCompletionType = "context"
+
+" python specific
+autocmd FileType python compiler pylint
+let ropevim_guess_project = 1
+let ropevim_enable_shortcuts = 1
+let ropevim_extended_complete = 1
+inoremap <C-t> <C-R>=RopeCodeAssistInsertMode() <CR>
+map <Leader>u :RopeUndo <CR>
+map <Leader>r :RopeRedo <CR>
+map <Leader>g :RopeGotoDefinition <CR>
+let ropevim_vim_completion=1
+let ropevim_enable_autoimport=1
+let ropevim_autoimport_modules = ["os"]

@@ -32,6 +32,7 @@ myManageHooks = composeAll
 		className =? "Gimp" --> doFloat,
 		className =? "Vncviewer" --> doFloat,
 		className =? "UTNaoTool" --> doFloat,
+    title =? "Gesture Trainer" --> doFloat,
 		title =? "Pursuit Simulation" --> doFloat,
 		className =? "Songbird" --> doF (W.shift "9"),
 		className =? "Guayadeque" --> doF (W.shift "9"),
