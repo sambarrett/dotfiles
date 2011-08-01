@@ -5,7 +5,8 @@ links = [
   ['.vim','vim'],
   ['.pylintrc','pylintrc'],
   ['.pentadactylrc','pentadactylrc'],
-  ['.xmonad','xmonad']
+  ['.xmonad','xmonad'],
+  ['.gestures.dat','gestures.dat']
 ]
 
 computerSpecificLinks = [
@@ -20,7 +21,11 @@ def getLinkName(linkName):
 def handleLink(linkName,source,make):
   link = getLinkName(linkName)
   if make:
-    os.symlink(os.path.abspath(source),link)
+    try:
+      os.symlink(os.path.abspath(source),link)
+    except:
+      import sys
+      print >>sys.stderr,'Failed to make link for',source,link
   else:
     try:
       os.unlink(link)
