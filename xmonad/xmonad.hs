@@ -16,6 +16,7 @@ main = do
 			manageHook = manageDocks <+> myManageHooks
 				<+> manageHook defaultConfig,
 			layoutHook = avoidStruts $ layoutHook defaultConfig,
+			startupHook = startup,
 			logHook = dynamicLogWithPP $ xmobarPP
 				{
 					ppOutput = hPutStrLn xmproc,
@@ -25,26 +26,29 @@ main = do
 				workspaces = myWorkspaces
 		} `additionalKeys` myKeys
 
-myManageHooks = composeAll
+myManageHooks = composeAll . concat $
 	[
---		isFullscreen --> (doF W.focusDown <+> doFullFloat)
-		isFullscreen --> doFullFloat,
-		className =? "Gimp" --> doFloat,
-		className =? "Vncviewer" --> doFloat,
-		className =? "UTNaoTool" --> doFloat,
-    title =? "Gesture Trainer" --> doFloat,
-		title =? "Pursuit Simulation" --> doFloat,
-		className =? "Songbird" --> doF (W.shift "9"),
-		className =? "Guayadeque" --> doF (W.shift "9"),
-		className =? "Pithos" --> doF (W.shift "9")
+		[ isFullscreen --> doFullFloat],
+		[ className =? c --> doFloat | c <- classFloats],
+		[ title =? t --> doFloat | t <- titleFloats],
+		[ className =? c --> doF (W.shift "9") | c <- musicPlayers],
+		[ className =? c --> doIgnore | c <- classIgnores]
 	]
+	where
+		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool"]
+		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester"]
+		musicPlayers = ["Songbird","Guayadeque","Pithos"]
+		classIgnores = ["stalonetray"]
 
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
 myKeys =
 	[
 		((controlMask .|. mod1Mask, xK_t), spawn "gnome-terminal"),
-		((controlMask .|. mod1Mask, xK_f), spawn "firefox")
+		((controlMask .|. mod1Mask, xK_f), spawn "firefox"),
+		((mod1Mask, xK_u), spawn "python /home/sam/programming/gestures/test.py"),
+		((mod1Mask,xK_Print), spawn "sleep 0.2; scrot -s '/home/sam/.screenshot/%Y-%m-%d-%H-%M-%S-scrot.png'"),
+		((0,xK_Print), spawn "scrot '/home/sam/.screenshot/%Y-%m-%d-%H-%M-%S-scrot.png'")
 	]
 	++ -- important since ff. is a list itself, can't just put inside above list
 	[((otherModMasks .|. mod1Mask, key), windows $ action tag)
@@ -54,4 +58,13 @@ myKeys =
 	[((m .|. mod1Mask, key), screenWorkspace sc >>= flip whenJust (windows . f))
 		| (key, sc) <- zip [xK_comma, xK_period] [0..]
 		, (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+
+startup :: X()
+startup = do
+  spawn "stalonetray"
+  spawn "dbus-launch nm-applet --sm-disable"
+  --spawn "gnome-settings-daemon"
+  spawn "gnome-screensaver"
+  spawn "gnome-volume-control-applet"
+  spawn "gnome-power-manager"
 
