@@ -1,3 +1,4 @@
 *.o
 *.swp
-xmonad.errors
+xmonad/xmonad.errors
+xmonad/xmonad-i386-linux
