@@ -18,6 +18,7 @@ let g:tex_flavor='latex'
 let g:miniBufExplMapWindowNavVim = 1
 set nospell
 set expandtab
+set completeopt+=menuone,longest,preview
 
 "autocmd Filetype tex set spell
 "au BufRead,BufNewFile *.txt set filetype=txt
@@ -69,6 +70,8 @@ let snips_author = 'Samuel Barrett'
 
 
 let g:SuperTabDefaultCompletionType = "context"
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " python specific
 autocmd FileType python compiler pylint
