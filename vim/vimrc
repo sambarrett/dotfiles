@@ -64,7 +64,7 @@ inoremap hh <Esc>
 let snips_author = 'Samuel Barrett'
 
 
-let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabDefaultCompletionType = "context"
 
 " python specific
 autocmd FileType python compiler pylint
@@ -75,6 +75,7 @@ inoremap <C-t> <C-R>=RopeCodeAssistInsertMode() <CR>
 map <Leader>u :RopeUndo <CR>
 map <Leader>r :RopeRedo <CR>
 map <Leader>g :RopeGotoDefinition <CR>
+map <Leader>d :RopeShowDoc <CR>
 let ropevim_vim_completion=1
 let ropevim_enable_autoimport=1
 let ropevim_autoimport_modules = ["os"]
