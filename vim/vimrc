@@ -82,4 +82,4 @@ map <Leader>g :RopeGotoDefinition <CR>
 map <Leader>d :RopeShowDoc <CR>
 let ropevim_vim_completion=1
 let ropevim_enable_autoimport=1
-let ropevim_autoimport_modules = ["os"]
+let ropevim_autoimport_modules = ["os","shutil"]
