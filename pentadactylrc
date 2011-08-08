@@ -1,5 +1,6 @@
 set guioptions=rbms
 set au=
-set strictfocus=*:laissez-faire
+"set strictfocus=*:laissez-faire
+set nosf
 set hintkeys="aoeuidhtns"
 set passkeys=*:<Tab>
