@@ -4,3 +4,4 @@ set au=
 set nosf
 set hintkeys="aoeuidhtns"
 set passkeys=*:<Tab>
+set passkeys=docs.google.com:<DEL>
