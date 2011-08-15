@@ -6,7 +6,7 @@ links = [
   ['.pylintrc','pylintrc'],
   ['.pentadactylrc','pentadactylrc'],
   ['.xmonad','xmonad'],
-  ['.gestures.dat','gestures.dat']
+  ['.gestures.dat','gestures.dat'],
   ['.bashrc','bashrc']
 ]
 

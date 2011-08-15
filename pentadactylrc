@@ -5,3 +5,4 @@ set nosf
 set hintkeys="aoeuidhtns"
 highlight -a Hint text-transform: uppercase;
 set passkeys=*:<Tab>
+set passkeys=docs.google.com:<DEL>
