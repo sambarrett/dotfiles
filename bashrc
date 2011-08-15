@@ -18,7 +18,7 @@ export PATH=$PATH:~/apps/usr/bin:~/apps/bin:~/bin/transfer-bin
 # set ld library path
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lusr/opt/qt-4.4.0/lib:/u/sbarrett/apps/lib
 # setup the python path
-export PYTHONPATH=$PYTHONPATH:/lusr/lib/python2.5/site-packages
+#export PYTHONPATH=$PYTHONPATH:/lusr/lib/python2.5/site-packages
 # compile flags
 export CFLAGS="-I/u/sbarrett/apps/include -L/u/sbarrett/apps/lib"
 export CPPFLAGS="-I/u/sbarrett/apps/include -L/u/sbarrett/apps/lib"

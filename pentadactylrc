@@ -3,4 +3,5 @@ set au=
 "set strictfocus=*:laissez-faire
 set nosf
 set hintkeys="aoeuidhtns"
+highlight -a Hint text-transform: uppercase;
 set passkeys=*:<Tab>
