@@ -7,7 +7,8 @@ links = [
   ['.pentadactylrc','pentadactylrc'],
   ['.xmonad','xmonad'],
   ['.gestures.dat','gestures.dat'],
-  ['.bashrc','bashrc']
+  ['.bashrc','bashrc'],
+  ['.ssh/config','sshconfig']
 ]
 
 computerSpecificLinks = [
