@@ -861,7 +861,7 @@ function! s:MapKeys()
     nnoremap <script> <silent> <buffer> s    :call <SID>ToggleSort()<CR>
     nnoremap <script> <silent> <buffer> x    :call <SID>ZoomWindow()<CR>
     nnoremap <script> <silent> <buffer> q    :call <SID>CloseWindow()<CR>
-    nnoremap <script> <silent> <buffer> <F1> :call <SID>ToggleHelp()<CR>
+    "nnoremap <script> <silent> <buffer> <F1> :call <SID>ToggleHelp()<CR>
 endfunction
 
 " s:CreateAutocommands() {{{2
@@ -2174,8 +2174,8 @@ endfunction
 " s:PrintHelp() {{{2
 function! s:PrintHelp()
     if !g:tagbar_compact && s:short_help
-        silent 0put ='\" Press <F1> for help'
-        silent  put _
+        "silent 0put ='\" Press <F1> for help'
+        "silent  put _
     elseif !s:short_help
         silent 0put ='\" Tagbar keybindings'
         silent  put ='\"'
