@@ -73,6 +73,11 @@ let g:tagbar_left = 1 "open on the left side
 let g:tagbar_autoclose = 1 "close after jumping to a tag
 let g:tagbar_autofocus = 1 "steal focus when opening
 
+" Command-T
+noremap <leader>o <Esc>:CommandT<CR>
+noremap <leader>O <Esc>:CommandTFlush<CR>
+noremap <leader>m <Esc>:CommandTBuffer<CR>
+
 let g:SuperTabDefaultCompletionType = "context"
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
