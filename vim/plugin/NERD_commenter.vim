@@ -1323,7 +1323,12 @@ endfunction
 "   -type: the type of commenting requested. Can be 'sexy', 'invert',
 "    'minimal', 'toggle', 'alignLeft', 'alignBoth', 'norm',
 "    'nested', 'toEOL', 'append', 'insert', 'uncomment', 'yank'
-function! NERDComment(isVisual, type) range
+function! NERDComment(isVisual, type, ...) range
+    if a:0 >= 1
+      let cmdSuffix = a:1
+    else
+      let cmdSuffix = substitute(a:type,"\\w\\+","\\u\\0","g")
+    endif
     " we want case sensitivity when commenting
     let oldIgnoreCase = &ignorecase
     set noignorecase
@@ -1416,6 +1421,9 @@ function! NERDComment(isVisual, type) range
     endif
 
     let &ignorecase = oldIgnoreCase
+    if cmdSuffix != ''
+      silent! call repeat#set("\<Plug>NERDCommenter".cmdSuffix)
+    endif
 endfunction
 
 " Function: s:PlaceDelimitersAndInsBetween() function {{{2
@@ -3014,8 +3022,8 @@ endfunction
 nnoremap <plug>NERDCommenterAltDelims :call <SID>SwitchToAlternativeDelimiters(1)<cr>
 
 " comment out lines
-nnoremap <silent> <plug>NERDCommenterComment :call NERDComment(0, "norm")<cr>
-vnoremap <silent> <plug>NERDCommenterComment <ESC>:call NERDComment(1, "norm")<cr>
+nnoremap <silent> <plug>NERDCommenterComment :call NERDComment(0, "norm","Comment")<cr>
+vnoremap <silent> <plug>NERDCommenterComment <ESC>:call NERDComment(1, "norm","Comment")<cr>
 
 " toggle comments
 nnoremap <silent> <plug>NERDCommenterToggle :call NERDComment(0, "toggle")<cr>
@@ -3046,8 +3054,8 @@ nnoremap <silent> <plug>NERDCommenterAlignBoth :call NERDComment(0, "alignBoth")
 vnoremap <silent> <plug>NERDCommenterAlignBoth <ESC>:call NERDComment(1, "alignBoth")<cr>
 
 " nested comments
-nnoremap <silent> <plug>NERDCommenterNest :call NERDComment(0, "nested")<cr>
-vnoremap <silent> <plug>NERDCommenterNest <ESC>:call NERDComment(1, "nested")<cr>
+nnoremap <silent> <plug>NERDCommenterNest :call NERDComment(0, "nested","Nest")<cr>
+vnoremap <silent> <plug>NERDCommenterNest <ESC>:call NERDComment(1, "nested","Nest")<cr>
 
 " uncomment
 nnoremap <silent> <plug>NERDCommenterUncomment :call NERDComment(0, "uncomment")<cr>
@@ -3060,7 +3068,7 @@ nnoremap <silent> <plug>NERDCommenterToEOL :call NERDComment(0, "toEOL")<cr>
 nmap <silent> <plug>NERDCommenterAppend :call NERDComment(0, "append")<cr>
 
 " insert comments
-inoremap <silent> <plug>NERDCommenterInInsert <SPACE><BS><ESC>:call NERDComment(0, "insert")<CR>
+inoremap <silent> <plug>NERDCommenterInInsert <SPACE><BS><ESC>:call NERDComment(0, "insert","InInsert")<CR>
 
 
 function! s:CreateMaps(target, combo)
