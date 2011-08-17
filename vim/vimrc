@@ -55,8 +55,8 @@ nnoremap <F4> :set invpaste paste?<CR>
 set pastetoggle=<F4>
 set showmode
 
-"Toggle taglist pane
-nnoremap <silent> <F1> :TlistToggle<CR>
+"Toggle tagbar pane
+nnoremap <silent> <F1> :TagbarToggle<CR>
 
 "Toggle file tree pane
 nnoremap <silent> <F3> :NERDTreeToggle<CR>
@@ -68,6 +68,10 @@ inoremap hh <Esc>
 
 let snips_author = 'Samuel Barrett'
 
+" Tag bar configuration
+let g:tagbar_left = 1 "open on the left side
+let g:tagbar_autoclose = 1 "close after jumping to a tag
+let g:tagbar_autofocus = 1 "steal focus when opening
 
 let g:SuperTabDefaultCompletionType = "context"
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
