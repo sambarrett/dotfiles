@@ -4,7 +4,6 @@ if !exists("g:ropevim_loaded")
 python << EOF
 import sys, vim
 sys.path.append(vim.eval("expand('<sfile>:p:h')")  + '/libs/')
-print sys.path
 import ropevim
 EOF
 let g:ropevim_loaded = 1
