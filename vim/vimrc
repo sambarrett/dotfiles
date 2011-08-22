@@ -1,6 +1,7 @@
 filetype off 
-call pathogen#helptags()
-call pathogen#runtime_append_all_bundles()
+call pathogen#infect()
+
+set nocp
 
 syntax on
 set ai
@@ -100,3 +101,13 @@ let ropevim_vim_completion=1
 let ropevim_enable_autoimport=1
 let ropevim_autoimport_modules = ["os","shutil"]
 
+" c++ specific
+autocmd FileType cpp let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let OmniCpp_ShowPrototypeInAbbr = 1
+let OmniCpp_MayCompleteDot = 1
+let OmniCpp_MayCompleteArrow = 1
+let OmniCpp_MayCompleteScope = 1
+let OmniCpp_SelectFirstItem = 2
+let OmniCpp_LocalSearchDecl = 1
+
+map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
