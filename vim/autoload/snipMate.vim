@@ -1,4 +1,7 @@
 fun! Filename(...)
+	if a:0 >= 1 && a:1 == 'full'
+		return expand('%')
+	end
 	let filename = expand('%:t:r')
 	if filename == '' | return a:0 == 2 ? a:2 : '' | endif
 	return !a:0 || a:1 == '' ? filename : substitute(a:1, '$1', filename, 'g')
