@@ -4,5 +4,4 @@ set strictfocus=*:laissez-faire
 "set nosf
 set hintkeys="aoeuidhtns"
 highlight -a Hint text-transform: uppercase;
-set passkeys=*:<Tab>,*:<BS>
-set passkeys=docs.google.com:<DEL>
+set passkeys=*:<Tab>,*:<BS>,docs.google.com:<DEL>
