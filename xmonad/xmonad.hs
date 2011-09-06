@@ -67,4 +67,5 @@ startup = do
   spawn "gnome-screensaver"
   spawn "gnome-volume-control-applet"
   spawn "gnome-power-manager"
+  spawn "workrave"
 
