@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+	echo "WHICH ROBOT???"
+	exit 1
+fi
+robot=$1
+if [ $# -gt 1 ]
+then
+	echo "WIRED"
+	ip=11.0.1.9$robot
+else
+	echo "WIRELESS"
+	#ip=10.0.1.9$robot
+  ip=192.168.25.9$robot
+fi
+ssh nao@$ip

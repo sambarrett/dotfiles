@@ -1,0 +1,5 @@
+#!/bin/bash
+
+gnome-terminal -x sshnao $@ &
+gnome-terminal -x sshnao $@ &
+sshnao $@

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+	echo "WHICH ROBOT???"
+	exit 1
+fi
+robot=$1
+if [ $# -gt 1 ]
+then
+	echo "WIRED"
+	ip=11.0.1.9$robot
+else
+	echo "WIRELESS"
+	#ip=10.0.1.9$robot
+  ip=192.168.1.9$robot
+fi
+
+key=`cat ~/.ssh/id_rsa.pub`
+ssh nao@$ip "echo $key >> ~/.ssh/authorized_keys"
+#echo "echo $key > ~/.ssh/authorized_keys"

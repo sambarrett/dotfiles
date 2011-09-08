@@ -8,7 +8,8 @@ links = [
   ['.xmonad','xmonad'],
   ['.gestures.dat','gestures.dat'],
   ['.bashrc','bashrc'],
-  ['.ssh/config','sshconfig']
+  ['.ssh/config','sshconfig'],
+  ['bin','bin']
 ]
 
 computerSpecificLinks = [
@@ -40,7 +41,7 @@ def handleLinks(make=True):
 
   hostname = socket.gethostname()
   for linkName,source in computerSpecificLinks:
-    handleLink(linkName+hostname,source,make)
+    handleLink(linkName,source+'-'+hostname,make)
 
 if __name__ == '__main__':
   handleLinks(make=False)

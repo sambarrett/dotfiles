@@ -1,0 +1,3 @@
+#!/bin/bash
+
+vncviewer benayoun.cs.utexas.edu:2

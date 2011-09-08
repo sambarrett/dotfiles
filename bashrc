@@ -13,7 +13,8 @@ fi
 [ -z "$PS1" ] && return
 
 # set executable path
-export PATH=$PATH:/lusr/opt/qt-4.3.2/bin:/lusr/condor/bin:/lusr/opt/condor/bin:$HOME/bin
+export PATH=$HOME/bin:$PATH # make my bin first, don't mess up my bin or bad things can happen
+export PATH=$PATH:/lusr/opt/qt-4.3.2/bin:/lusr/condor/bin:/lusr/opt/condor/bin:
 export PATH=$PATH:~/apps/usr/bin:~/apps/bin:~/bin/transfer-bin
 # set ld library path
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lusr/opt/qt-4.4.0/lib:/u/sbarrett/apps/lib

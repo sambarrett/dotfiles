@@ -1,0 +1,16 @@
+#!/bin/bash
+
+xrdb -merge .Xresources
+
+# this needs to be before xmonad, because otherwise the screens aren't sized correctly
+gnome-settings-daemon
+
+# This must be started before seahorse-daemon.
+eval $(gnome-keyring-daemon --start)
+export GNOME_KEYRING_SOCKET
+export GNOME_KEYRING_PID
+# start seahorse-daemon, gnomes keyring
+seahorse-daemon
+
+exec /usr/bin/xmonad # need full path, since this script will be the first in the path
+

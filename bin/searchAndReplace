@@ -1,0 +1,12 @@
+#!/usr/bin/env python
+
+import sys, subprocess
+
+search = sys.argv[1]
+replace = sys.argv[2]
+files = sys.argv[3:]
+cmd = ['perl','-pi','-w','-e','s/%s/%s/g;' % (search,replace)] + files
+
+print cmd
+
+subprocess.check_call(cmd)
