@@ -120,6 +120,7 @@ alias la='ls -A'
 alias l='ls -CF'
 
 alias g="egrep --exclude-dir=.svn --exclude=\*tags\* --exclude=\*core_wrap.cpp\* -I -n "
+alias make="make -j -l 2.5"
 
 if [ $onLabMachine ]
 then
