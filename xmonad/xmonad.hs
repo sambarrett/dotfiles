@@ -62,10 +62,11 @@ myKeys =
 startup :: X()
 startup = do
   spawn "stalonetray"
-  spawn "dbus-launch nm-applet --sm-disable"
+  {-spawn "dbus-launch nm-applet --sm-disable"-}
   --spawn "gnome-settings-daemon"
   spawn "gnome-screensaver"
   spawn "gnome-volume-control-applet"
   spawn "gnome-power-manager"
+  spawn "sleep 10 && nm-applet --sm-disable"
   spawn "workrave"
 
