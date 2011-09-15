@@ -120,7 +120,8 @@ alias la='ls -A'
 alias l='ls -CF'
 
 alias g="egrep --exclude-dir=.svn --exclude=\*tags\* --exclude=\*core_wrap.cpp\* -I -n "
-alias make="make -j -l 2.5"
+NUM_PROCESSORS=`grep -c processor /proc/cpuinfo`
+alias make="make -j ${NUM_PROCESSORS}"
 
 if [ $onLabMachine ]
 then
