@@ -9,7 +9,8 @@ links = [
   ['.gestures.dat','gestures.dat'],
   ['.bashrc','bashrc'],
   ['.ssh/config','sshconfig'],
-  ['bin','bin']
+  ['bin','bin'],
+  ['.toprc','toprc']
 ]
 
 computerSpecificLinks = [
