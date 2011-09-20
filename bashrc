@@ -160,7 +160,8 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 set -o vi
-
+# completions
+complete -f -o default -X '!*.+(condor|CONDOR)' condor_submit
 
 
 if [ -f ~/.bashrc.nao ]; then
