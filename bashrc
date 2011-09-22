@@ -141,6 +141,7 @@ then
   alias ctags='~/apps/bin/ctags'
   alias vim='~/apps/bin/vim'
   alias gvim='~/apps/bin/gvim'
+  alias condor_qr='condor_q sbarrett | grep running'
 fi
 
 # Alias definitions.

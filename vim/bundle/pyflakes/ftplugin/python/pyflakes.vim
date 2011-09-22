@@ -48,7 +48,25 @@ sys.path.insert(0, scriptdir)
 
 import ast
 from pyflakes import checker, messages
-from operator import attrgetter
+try:
+  from operator import attrgetter
+except:
+  # taken from http://docs.python.org/library/operator.html
+  def attrgetter(*items):
+      if len(items) == 1:
+          attr = items[0]
+          def g(obj):
+              return resolve_attr(obj, attr)
+      else:
+          def g(obj):
+              return tuple(resolve_att(obj, attr) for attr in items)
+      return g
+
+  def resolve_attr(obj, attr):
+      for name in attr.split("."):
+          obj = getattr(obj, name)
+      return obj
+
 import re
 
 class loc(object):
