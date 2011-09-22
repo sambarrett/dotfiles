@@ -24,10 +24,13 @@ import os.path
 import fileinput
 import sys
 import vim
-import time
 
 # Just in case the ViM build you're using doesn't have subprocess
-if sys.version < '2.4':
+try:
+   import subprocess
+   def do_cmd(cmd, cwd):
+      p = subprocess.Popen(cmd, shell=True, stdout=None, stderr=None, cwd=cwd)
+except:
    def do_cmd(cmd, cwd):
       old_cwd=os.getcwd()
       os.chdir(cwd)
@@ -35,17 +38,12 @@ if sys.version < '2.4':
       for line in ch_out:
          pass
       os.chdir(old_cwd)
-
+try:
+   from traceback import format_exc
+except:
    import traceback
    def format_exc():
       return ''.join(traceback.format_exception(*list(sys.exc_info())))
-
-else:
-   import subprocess
-   def do_cmd(cmd, cwd):
-      p = subprocess.Popen(cmd, shell=True, stdout=None, stderr=None, cwd=cwd)
-
-   from traceback import format_exc
 
 def echo(str):
    str=str.replace('\\', '\\\\')
