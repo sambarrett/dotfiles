@@ -142,6 +142,7 @@ then
   alias vim='~/apps/bin/vim'
   alias gvim='~/apps/bin/gvim'
   alias condor_qr='condor_q sbarrett | grep running'
+  alias condor_qar='condor_q | grep running'
 fi
 
 # Alias definitions.
