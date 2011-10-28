@@ -171,5 +171,9 @@ if [ -f ~/.bashrc.nao ]; then
 fi
 
 if [ -f ~/.bashrc.ros ]; then
-. ~/.bashrc.ros
+  . ~/.bashrc.ros
+fi
+
+if [ -f ~/programming/smartcomputer/bashrc ]; then
+  . ~/programming/smartcomputer/bashrc
 fi
