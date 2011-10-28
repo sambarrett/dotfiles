@@ -36,7 +36,7 @@ myManageHooks = composeAll . concat $
 	]
 	where
 		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool"]
-		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester"]
+		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester", "Teleop"]
 		musicPlayers = ["Songbird","Guayadeque","Pithos"]
 		classIgnores = ["stalonetray"]
 
@@ -67,6 +67,6 @@ startup = do
   spawn "gnome-screensaver"
   spawn "gnome-volume-control-applet"
   spawn "gnome-power-manager"
-  spawn "sleep 10 && nm-applet --sm-disable"
+  spawn "nm-applet --sm-disable"
   spawn "workrave"
 
