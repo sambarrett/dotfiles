@@ -64,6 +64,7 @@ startup = do
   spawn "stalonetray"
   {-spawn "dbus-launch nm-applet --sm-disable"-}
   --spawn "gnome-settings-daemon"
+  spawn "dropbox start"
   spawn "gnome-screensaver"
   spawn "gnome-volume-control-applet"
   spawn "gnome-power-manager"
