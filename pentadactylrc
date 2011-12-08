@@ -5,3 +5,4 @@ set strictfocus=*:laissez-faire
 set hintkeys="aoeuidhtns"
 highlight -a Hint text-transform: uppercase;
 set passkeys=*:<Tab>,*:<BS>,docs.google.com:<DEL>
+set passkeys+=mail.google.com:jk<CR>,gi
