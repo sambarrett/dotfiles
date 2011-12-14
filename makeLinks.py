@@ -1,20 +1,26 @@
 #!/usr/bin/env python
 
-links = [
-  ['.vimrc','vim/vimrc'],
-  ['.vim','vim'],
-  ['.pylintrc','pylintrc'],
-  ['.pentadactylrc','pentadactylrc'],
-  ['.xmonad','xmonad'],
-  ['.gestures.dat','gestures.dat'],
-  ['.bashrc','bashrc'],
-  ['.ssh/config','sshconfig'],
-  ['bin','bin'],
-  ['.toprc','toprc']
-]
+class Link(object):
+  def __init__(self,src,dest=None,computerSpecific=False):
+    self.src = src
+    self.dest = dest
+    self.computerSpecific = computerSpecific
+    if self.dest is None:
+      self.dest = '.' + src
 
-computerSpecificLinks = [
-  ['.xmobarrc','xmobarrc']
+links = [
+  Link('vim/vimrc','.vimrc'),
+  Link('vim'),
+  Link('pylintrc'),
+  Link('pentadactylrc'),
+  Link('xmonad'),
+  Link('gestures.dat'),
+  Link('bashrc'),
+  Link('sshconfig','.ssh/config'),
+  Link('bin','bin'),
+  Link('toprc'),
+  Link('inputrc'),
+  Link('xmobarrc',computerSpecific=True)
 ]
 
 import os, socket
@@ -37,12 +43,12 @@ def handleLink(linkName,source,make):
       pass
 
 def handleLinks(make=True):
-  for linkName,source in links:
-    handleLink(linkName,source,make)
-
   hostname = socket.gethostname()
-  for linkName,source in computerSpecificLinks:
-    handleLink(linkName,source+'-'+hostname,make)
+  for link in links:
+    src = link.src
+    if link.computerSpecific:
+      src += '-' + hostname
+    handleLink(link.dest,src,make)
 
 if __name__ == '__main__':
   handleLinks(make=False)

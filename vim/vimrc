@@ -65,7 +65,8 @@ nnoremap <silent> <F3> :NERDTreeToggle<CR>
 "Toggle buffer explorer
 nnoremap <silent> <F2> :TMiniBufExplorer<CR>
 
-inoremap hh <Esc>
+inoremap jk <Esc>
+inoremap kj <Esc>
 
 let snips_author = 'Samuel Barrett'
 
