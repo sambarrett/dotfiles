@@ -93,6 +93,18 @@ function PromptExitCode()
   RETCODE="$?"
   RED='\e[1;31m'
   OFF='\e[0m'
+  USERNAME=`whoami`
+  if [ $USERNAME == 'sam' -o $USERNAME == 'sbarrett' ]
+  then
+    USERNAME=''
+  else
+    if [ $onLabMachine ]
+    then
+      USERNAME="\[${RED}\]$USERNAME\[${OFF}\]@"
+    else
+      USERNAME="\[${RED}\]$USERNAME\[${OFF}\]:"
+    fi
+  fi
 
   if [[ "${RETCODE}" -eq "0" ]]
   then
@@ -103,10 +115,10 @@ function PromptExitCode()
   MYPWD=`pwd | sed 's/\/home\/sam/\~/' | sed 's/\/v\/filer4b\/v20q001\/sbarrett/\~/' | sed 's/\/u\/sbarrett/\~/'`
   if [ $onLabMachine ]
   then
-    PROMPT="\h:${MYPWD}${RET_PROMPT}\$ "
+    PROMPT="$USERNAME\h:${MYPWD}${RET_PROMPT}\$ "
     PS1="\[\033];\h:${MYPWD}\007\]${PROMPT}"
   else
-    PROMPT="${MYPWD}${RET_PROMPT}\$ "
+    PROMPT="$USERNAME${MYPWD}${RET_PROMPT}\$ "
     PS1="\[\033];${MYPWD}\007\]${PROMPT}"
   fi
 }
