@@ -16,7 +16,7 @@ main = do
 			manageHook = manageDocks <+> myManageHooks
 				<+> manageHook defaultConfig,
 			layoutHook = avoidStruts $ layoutHook defaultConfig,
-			startupHook = startup,
+			{-startupHook = startup,-}
 			logHook = dynamicLogWithPP $ xmobarPP
 				{
 					ppOutput = hPutStrLn xmproc,
@@ -38,7 +38,7 @@ myManageHooks = composeAll . concat $
 		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool"]
 		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester", "Teleop", "Figure 1", "Config Editor"]
 		musicPlayers = ["Songbird","Guayadeque","Pithos"]
-		classIgnores = ["stalonetray"]
+		classIgnores = ["stalonetray","trayer"]
 
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
@@ -48,7 +48,8 @@ myKeys =
 		((controlMask .|. mod1Mask, xK_f), spawn "firefox"),
 		((mod1Mask, xK_u), spawn "python /home/sam/programming/gestures/test.py"),
 		((mod1Mask,xK_Print), spawn "sleep 0.2; scrot -s '/home/sam/.screenshot/%Y-%m-%d-%H-%M-%S-scrot.png'"),
-		((0,xK_Print), spawn "scrot '/home/sam/.screenshot/%Y-%m-%d-%H-%M-%S-scrot.png'")
+		((0,xK_Print), spawn "scrot '/home/sam/.screenshot/%Y-%m-%d-%H-%M-%S-scrot.png'"),
+    ((mod1Mask, xK_q), spawn "/usr/bin/xmonad --recompile; /usr/bin/xmonad --restart")
 	]
 	++ -- important since ff. is a list itself, can't just put inside above list
 	[((otherModMasks .|. mod1Mask, key), windows $ action tag)
@@ -59,15 +60,16 @@ myKeys =
 		| (key, sc) <- zip [xK_comma, xK_period] [0..]
 		, (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
-startup :: X()
-startup = do
-  spawn "stalonetray"
-  {-spawn "dbus-launch nm-applet --sm-disable"-}
-  --spawn "gnome-settings-daemon"
-  spawn "dropbox start"
-  spawn "gnome-screensaver"
-  spawn "gnome-volume-control-applet"
-  spawn "gnome-power-manager"
-  spawn "nm-applet --sm-disable"
-  spawn "workrave"
+{-startup :: X()-}
+{-startup = do-}
+  {---spawn "stalonetray"-}
+  {-[>spawn "dbus-launch nm-applet --sm-disable"<]-}
+  {---spawn "gnome-settings-daemon"-}
+  {-spawn "trayer --edge bottom --align right --SetDockType true --widthtype pixel --width 190 --heighttype pixel --height 20"-}
+  {-spawn "dropbox start"-}
+  {-spawn "gnome-screensaver"-}
+  {-spawn "gnome-volume-control-applet"-}
+  {-spawn "gnome-power-manager"-}
+  {-spawn "nm-applet --sm-disable"-}
+  {-spawn "workrave"-}
 

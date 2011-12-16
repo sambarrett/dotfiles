@@ -12,5 +12,15 @@ export GNOME_KEYRING_PID
 # start seahorse-daemon, gnomes keyring
 seahorse-daemon
 
-exec /usr/bin/xmonad # need full path, since this script will be the first in the path
+# previously in xmonad.hs startup
+trayer --edge bottom --align right --SetDockType true --widthtype pixel --width 190 --heighttype pixel --height 20 &
+dropbox start &
+gnome-screensaver &
+gnome-volume-control-applet &
+gnome-power-manager &
+nm-applet --sm-disable &
+workrave &
+
+
+exec /usr/bin/xmonad
 
