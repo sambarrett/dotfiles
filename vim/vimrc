@@ -84,6 +84,13 @@ let g:SuperTabDefaultCompletionType = "context"
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
+" write files via sudo - stolen from https://github.com/tpope/vim-eunuch/
+command! -bar SudoWrite :
+      \ setlocal nomodified |
+      \ silent exe 'write !sudo tee % >/dev/null' |
+      \ let &modified = v:shell_error |
+      \ edit
+
 " python specific
 autocmd FileType python compiler pylint
 let g:pylint_onwrite = 0
