@@ -13,7 +13,7 @@ export GNOME_KEYRING_PID
 seahorse-daemon
 
 # previously in xmonad.hs startup
-trayer --edge bottom --align right --SetDockType true --widthtype request --expand true --heighttype pixel --height 22 --tint 0x000000 --alpha 0 --transparent true --margin 130 &
+trayer --edge bottom --align left --SetDockType true --widthtype request --expand true --heighttype pixel --height 22 --tint 0x000000 --alpha 0 --transparent true --margin 1580 &
 dropbox start &
 gnome-screensaver &
 gnome-volume-control-applet &
