@@ -1,2 +1,2 @@
 #!/bin/sh
-gvim ~/Dropbox/*.org -o
+gvim ~/Dropbox/org/*.org -o
