@@ -21,6 +21,8 @@ links = [
   Link('bin','bin'),
   Link('toprc'),
   Link('inputrc'),
+  Link('gitconfig'),
+  Link('gitignore'),
   Link('xmobarrc',computerSpecific=True),
   Link('xmonad.desktop','/usr/share/xsessions/xmonad.desktop',sudo=True)
 ]
