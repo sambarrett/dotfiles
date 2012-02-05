@@ -198,10 +198,10 @@ if [ -f ~/.bashrc.nao ]; then
   . ~/.bashrc.nao
 fi
 
-if [ -f ~/.bashrc.ros ]; then
-  . ~/.bashrc.ros
-fi
+#if [ -f ~/.bashrc.ros ]; then
+  #. ~/.bashrc.ros
+#fi
 
-if [ -f ~/programming/smartcomputer/bashrc ]; then
-  . ~/programming/smartcomputer/bashrc
-fi
+#if [ -f ~/programming/smartcomputer/bashrc ]; then
+  #. ~/programming/smartcomputer/bashrc
+#fi
