@@ -1,26 +1,26 @@
 #!/bin/bash
 
-xrdb -merge .Xresources
+#xrdb -merge .Xresources
 
 # this needs to be before xmonad, because otherwise the screens aren't sized correctly
-gnome-settings-daemon
+gnome-settings-daemon &
 
 # This must be started before seahorse-daemon.
 eval $(gnome-keyring-daemon --start)
 export GNOME_KEYRING_SOCKET
 export GNOME_KEYRING_PID
 # start seahorse-daemon, gnomes keyring
-seahorse-daemon
+#seahorse-daemon
 
 # previously in xmonad.hs startup
-trayer --edge bottom --align left --SetDockType true --widthtype request --expand true --heighttype pixel --height 22 --tint 0x000000 --alpha 0 --transparent true --margin 1580 &
+trayer --edge bottom --align right --SetDockType true --widthtype request --expand true --heighttype pixel --height 22 --tint 0x000000 --alpha 0 --transparent true --monitor 1 --margin 120 &
 dropbox start &
 gnome-screensaver &
 gnome-volume-control-applet &
 gnome-power-manager &
 nm-applet --sm-disable &
 workrave &
-
+feh --bg-scale /home/sam/backgrounds/calvin-backup.jpg
 
 exec /usr/bin/xmonad
 
