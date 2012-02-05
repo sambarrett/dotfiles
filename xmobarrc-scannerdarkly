@@ -1,15 +1,15 @@
 Config { font = "-misc-fixed-*-*-*-*-18-*-*-*-*-*-*-*"
        , bgColor = "black"
        , fgColor = "green"
-			 , position = Static {xpos = 1680, ypos = 1052, width = 1800, height = 28}
+			 , position = Static { xpos = 1680, ypos = 1058, width = 1920, height = 22 }
        , lowerOnStart = True
        , commands = [ Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
-                    , Run Date "%a %b %_d %Y %I:%M" "date" 10
+                    , Run Date "%b %_d %I:%M" "date" 10
 										, Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% } %StdinReader% { %date%"
+       , template = "%cpu% | %memory% } %StdinReader% { %date% "
        }
 
