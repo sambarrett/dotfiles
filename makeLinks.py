@@ -24,6 +24,7 @@ links = [
   Link('gitconfig'),
   Link('gitignore'),
   Link('xmobarrc',computerSpecific=True),
+  Link('trayerStart','bin/trayerStart',computerSpecific=True),
   Link('xmonad.desktop','/usr/share/xsessions/xmonad.desktop',sudo=True)
 ]
 
