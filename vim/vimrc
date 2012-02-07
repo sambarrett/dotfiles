@@ -125,4 +125,7 @@ au BufWritePost *.cpp,*.c,*.h call g:ClangUpdateQuickFix()
 " json specific
 autocmd BufNewFile,BufRead *.json set ft=javascript
 
+" REMAP ; to :, nicer for commands
+noremap ; :
+
 map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
