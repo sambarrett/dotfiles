@@ -2,4 +2,5 @@
 
 gnome-terminal -e "ssh submit64"
 gnome-terminal -e "ssh submit32"
+gnome-terminal -e "ssh lab"
 ssh lab
