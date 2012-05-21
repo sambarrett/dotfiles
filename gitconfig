@@ -1,14 +1,14 @@
 [user]
-	name = Samuel Barrett
-	email = sbarrett@cs.utexas.edu
+  name = Samuel Barrett
+  email = sbarrett@cs.utexas.edu
 [alias]
   st = status
   revert = checkout
-	co = checkout
+  co = checkout
   ci = commit
 [diff]
   tool = meld
 [difftool]
   prompt = false
 [core]
-	excludesfile = /home/sam/.gitignore
+  excludesfile = /home/sam/.gitignore
