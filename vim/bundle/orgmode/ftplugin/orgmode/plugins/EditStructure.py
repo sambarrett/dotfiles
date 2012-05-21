@@ -25,7 +25,7 @@ class EditStructure(object):
 		self.keybindings = []
 
 	@classmethod
-	def new_heading(cls, below=None, insert_mode=False, end_of_last_child=False):
+	def new_heading(cls, below=None, insert_mode=False, end_of_last_child=False, level_offset=0):
 		u"""
 		:below:				True, insert heading below current heading, False,
 							insert heading above current heading, None, special
@@ -49,7 +49,7 @@ class EditStructure(object):
 			vim.command((u'exe "normal %dgg"|startinsert!' % (heading.start_vim, )).encode(u'utf-8'))
 			return heading
 
-		heading = Heading(level=current_heading.level)
+		heading = Heading(level=current_heading.level + level_offset)
 
 		# it's weird but this is the behavior of original orgmode
 		if below is None:
@@ -333,14 +333,16 @@ class EditStructure(object):
 		"""
 		settings.set(u'org_improve_split_heading', u'1')
 
-		self.keybindings.append(Keybinding(u'<C-S-CR>', Plug(u'OrgNewHeadingAboveNormal', u':silent! py ORGMODE.plugins[u"EditStructure"].new_heading(below=False)<CR>')))
+		#self.keybindings.append(Keybinding(u'<C-S-CR>', Plug(u'OrgNewHeadingAboveNormal', u':silent! py ORGMODE.plugins[u"EditStructure"].new_heading(below=False)<CR>')))
+		self.keybindings.append(Keybinding(u'<C-S-CR>', Plug(u'OrgNewHeadingBelowIncLevelNormal', u':silent! py ORGMODE.plugins[u"EditStructure"].new_heading(below=True,level_offset=1)<CR>')))
 		self.menu + ActionEntry(u'New Heading &above', self.keybindings[-1])
 		self.keybindings.append(Keybinding(u'<S-CR>', Plug(u'OrgNewHeadingBelowNormal', u':silent! py ORGMODE.plugins[u"EditStructure"].new_heading(below=True)<CR>')))
 		self.menu + ActionEntry(u'New Heading &below', self.keybindings[-1])
 		self.keybindings.append(Keybinding(u'<C-CR>', Plug(u'OrgNewHeadingBelowAfterChildrenNormal', u':silent! py ORGMODE.plugins[u"EditStructure"].new_heading(below=True, end_of_last_child=True)<CR>')))
 		self.menu + ActionEntry(u'New Heading below, after &children', self.keybindings[-1])
 
-		self.keybindings.append(Keybinding(u'<C-S-CR>', Plug(u'OrgNewHeadingAboveInsert', u'<C-o>:<C-u>silent! py ORGMODE.plugins[u"EditStructure"].new_heading(below=False, insert_mode=True)<CR>', mode=MODE_INSERT)))
+		#self.keybindings.append(Keybinding(u'<C-S-CR>', Plug(u'OrgNewHeadingAboveInsert', u'<C-o>:<C-u>silent! py ORGMODE.plugins[u"EditStructure"].new_heading(below=False, insert_mode=True)<CR>', mode=MODE_INSERT)))
+		self.keybindings.append(Keybinding(u'<C-S-CR>', Plug(u'OrgNewHeadingBelowIncLevelInsert', u'<C-o>:<C-u>silent! py ORGMODE.plugins[u"EditStructure"].new_heading(insert_mode=True, level_offset=1)<CR>', mode=MODE_INSERT)))
 		self.keybindings.append(Keybinding(u'<S-CR>', Plug(u'OrgNewHeadingBelowInsert', u'<C-o>:<C-u>silent! py ORGMODE.plugins[u"EditStructure"].new_heading(insert_mode=True)<CR>', mode=MODE_INSERT)))
 		self.keybindings.append(Keybinding(u'<C-CR>', Plug(u'OrgNewHeadingBelowAfterChildrenInsert', u'<C-o>:<C-u>silent! py ORGMODE.plugins[u"EditStructure"].new_heading(insert_mode=True, end_of_last_child=True)<CR>', mode=MODE_INSERT)))
 
