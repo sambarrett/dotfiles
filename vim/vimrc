@@ -129,3 +129,6 @@ autocmd BufNewFile,BufRead *.json set ft=javascript
 noremap ; :
 
 map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
+
+" font for gvim
+set guifont=DejaVu\ Sans\ Mono\ 12
