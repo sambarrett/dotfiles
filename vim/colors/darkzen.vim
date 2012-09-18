@@ -12,16 +12,15 @@ let g:colors_name = "darkzen"
 
 highlight Normal     term=none ctermfg=white   cterm=none guifg=white       gui=none guibg=black
 highlight Comment    term=none ctermfg=cyan    cterm=none guifg=cyan        gui=none
-highlight Constant   term=none ctermfg=green   cterm=none guifg=forestgreen gui=none
+highlight Constant   term=none ctermfg=darkgreen   cterm=none guifg=forestgreen gui=none
 highlight Special    term=none ctermfg=magenta cterm=bold guifg=magenta     gui=bold
 highlight Identifier term=none ctermfg=white   cterm=none guifg=white       gui=none
 highlight Statement  term=bold ctermfg=yellow  cterm=bold guifg=yellow      gui=bold
 highlight Operator   term=bold ctermfg=white   cterm=bold guifg=white       gui=bold
 highlight PreProc    term=bold ctermfg=magenta cterm=none guifg=magenta     gui=none
-highlight Type       term=bold ctermfg=green   cterm=none guifg=magenta     gui=bold
-highlight String     term=none ctermfg=red     cterm=none guifg=red         gui=none
-highlight Number     term=none ctermfg=red     cterm=none guifg=red         gui=none
-highlight SpellBad   term=none ctermbg=magenta cterm=none gui=undercurl guibg=darkmagenta
-
+highlight Type       term=bold ctermfg=darkgreen   cterm=none guifg=magenta     gui=bold
+highlight String     term=none ctermfg=darkred     cterm=none guifg=red         gui=none
+highlight Number     term=none ctermfg=darkred     cterm=none guifg=red         gui=none
+highlight SpellBad   term=none ctermbg=darkmagenta cterm=none gui=undercurl guibg=darkmagenta
 " vim:ts=2:sw=2:et
 

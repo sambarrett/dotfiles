@@ -41,6 +41,7 @@ command! CD cd %:p:h
 " insert one character
 nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
 
+set t_Co=256
 colorscheme darkzen
 
 "look for the tag file going up the directories
@@ -132,3 +133,10 @@ map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
 
 " font for gvim
 set guifont=DejaVu\ Sans\ Mono\ 12
+
+let g:Tex_FoldedEnvironments = ',frame,thesisabstract'
+
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=232
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=233
+autocmd VimEnter,Colorscheme * :IndentGuidesEnable
