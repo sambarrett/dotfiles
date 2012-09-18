@@ -20,6 +20,7 @@ let g:miniBufExplMapWindowNavVim = 1
 set nospell
 set expandtab
 set completeopt+=menuone,longest,preview
+let mapleader=","
 
 "autocmd Filetype tex set spell
 "au BufRead,BufNewFile *.txt set filetype=txt
