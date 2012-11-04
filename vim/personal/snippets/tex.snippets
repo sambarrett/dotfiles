@@ -1,0 +1,36 @@
+snippet frame "frame"
+\begin{frame}
+	\frametitle{${1}}
+	${2}
+\end{frame}
+endsnippet
+
+snippet columns "columns"
+\begin{columns}
+	\begin{column}{${1:0.5\textwidth}}
+		${3}
+	\end{column}
+	\begin{column}{${2:0.5\textwidth}}
+		${4}
+	\end{column}
+\end{columns}
+endsnippet
+
+snippet column "column"
+\begin{column}{${1:0.5\textwidth}}
+	${2}
+\end{column}
+endsnippet
+
+snippet it "it"
+\item ${1:}
+endsnippet
+
+snippet posterbox "posterbox"
+\begin{posterbox}
+	\frameheading{${1:title}}
+	${2:body}
+\end{posterbox}
+endsnippet
+
+

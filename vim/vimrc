@@ -70,7 +70,7 @@ nnoremap <silent> <F2> :TMiniBufExplorer<CR>
 inoremap jk <Esc>
 inoremap kj <Esc>
 
-let snips_author = 'Samuel Barrett'
+let g:UltiSnipsSnippetDirectories=["UltiSnips","personal/snippets"]
 
 " Tag bar configuration
 let g:tagbar_left = 1 "open on the left side
