@@ -1,5 +1,9 @@
 #!/bin/bash
 
-gnome-terminal -x sshnao $@ &
-gnome-terminal -x sshnao $@ &
-sshnao $@
+SSHNAO="sshnao"
+
+gnome-terminal -x $SSHNAO $@ &
+sleep 1
+gnome-terminal -x $SSHNAO $@ &
+sleep 1
+$SSHNAO $@
