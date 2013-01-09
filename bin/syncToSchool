@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: syncToSchool path"
+  exit 1
+fi
+
+base=`python -c "import os.path; print os.path.relpath('$PWD', '$HOME')"`
+dir=$1
+
+rsync -avz ~/$base/$dir/* school:$base/$dir

@@ -20,6 +20,7 @@ let g:miniBufExplMapWindowNavVim = 1
 set nospell
 set expandtab
 set completeopt+=menuone,longest,preview
+let mapleader=","
 
 "autocmd Filetype tex set spell
 "au BufRead,BufNewFile *.txt set filetype=txt
@@ -41,6 +42,7 @@ command! CD cd %:p:h
 " insert one character
 nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
 
+set t_Co=256
 colorscheme darkzen
 
 "look for the tag file going up the directories
@@ -68,7 +70,7 @@ nnoremap <silent> <F2> :TMiniBufExplorer<CR>
 inoremap jk <Esc>
 inoremap kj <Esc>
 
-let snips_author = 'Samuel Barrett'
+let g:UltiSnipsSnippetDirectories=["UltiSnips","personal/snippets"]
 
 " Tag bar configuration
 let g:tagbar_left = 1 "open on the left side
@@ -129,3 +131,13 @@ autocmd BufNewFile,BufRead *.json set ft=javascript
 noremap ; :
 
 map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
+
+" font for gvim
+set guifont=DejaVu\ Sans\ Mono\ 12
+
+let g:Tex_FoldedEnvironments = ',frame,thesisabstract'
+
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=232
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=233
+autocmd VimEnter,Colorscheme * :IndentGuidesEnable

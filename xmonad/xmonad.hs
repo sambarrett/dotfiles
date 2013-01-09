@@ -35,7 +35,7 @@ myManageHooks = composeAll . concat $
 		[ className =? c --> doIgnore | c <- classIgnores]
 	]
 	where
-		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool"]
+		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool","Tk"]
 		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester", "Teleop", "Figure 1", "Config Editor"]
 		musicPlayers = ["Songbird","Guayadeque","Pithos"]
 		classIgnores = ["stalonetray","trayer"]
