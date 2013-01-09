@@ -171,6 +171,7 @@ then
   alias gvim='~/apps/bin/gvim'
   alias condor_qr='condor_q sbarrett | grep running'
   alias condor_qar='condor_q | grep running'
+  alias condor_status_total="condor_status | grep X86_64 | grep Unclaimed | egrep -e 'glamdring|narsil|lhug|orcrist|rhavan|uvanimor' | wc -l"
 fi
 
 # Alias definitions.
