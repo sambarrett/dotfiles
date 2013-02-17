@@ -17,7 +17,7 @@ export PATH=$HOME/bin:$PATH # make my bin first, don't mess up my bin or bad thi
 export PATH=$PATH:/lusr/opt/qt-4.3.2/bin:/lusr/condor/bin:/lusr/opt/condor/bin:
 export PATH=$PATH:~/apps/usr/bin:~/apps/bin:~/bin/transfer-bin
 # set ld library path
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lusr/opt/qt-4.4.0/lib:/u/sbarrett/apps/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lusr/opt/qt-4.4.0/lib:/u/sbarrett/apps/lib:~/research/adhoc2/robocup/ut-agent/librcsc-4.1.0/libs/lib/
 # setup the python path
 #export PYTHONPATH=$PYTHONPATH:/lusr/lib/python2.5/site-packages
 # compile flags
