@@ -34,4 +34,5 @@ sudo apt-get install \
   icedtea-7-plugin \
   suckless-tools \
   pithos \
-  rcsoccersim
+  rcsoccersim \
+  fping
