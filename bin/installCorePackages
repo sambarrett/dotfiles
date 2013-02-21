@@ -38,4 +38,7 @@ sudo apt-get install \
   rcsoccersim \
   fping \
   ubuntu-tweak \
-  imagemagick
+  imagemagick \
+  gconf-editor \
+  flashplugin-installer \
+  dconf-tools
