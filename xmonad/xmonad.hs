@@ -2,6 +2,7 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.NoBorders
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
@@ -15,7 +16,7 @@ main = do
 			modMask = mod1Mask,
 			manageHook = manageDocks <+> myManageHooks
 				<+> manageHook defaultConfig,
-			layoutHook = avoidStruts $ layoutHook defaultConfig,
+			layoutHook = lessBorders OnlyFloat $ avoidStruts $ layoutHook defaultConfig,
 			{-startupHook = startup,-}
 			logHook = dynamicLogWithPP $ xmobarPP
 				{
@@ -35,7 +36,7 @@ myManageHooks = composeAll . concat $
 		[ className =? c --> doIgnore | c <- classIgnores]
 	]
 	where
-		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool","Tk"]
+		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool","Tk","mplayer2"]
 		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester", "Teleop", "Figure 1", "Config Editor"]
 		musicPlayers = ["Songbird","Guayadeque","Pithos"]
 		classIgnores = ["stalonetray","trayer"]
