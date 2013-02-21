@@ -9,7 +9,7 @@ import qualified XMonad.StackSet as W
 
 
 main = do
-	xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmobarrc"
+	xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmobarrc --screen=1"
 	xmonad $ defaultConfig
 		{
 			modMask = mod1Mask,
