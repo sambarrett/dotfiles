@@ -5,5 +5,6 @@ TARNAME=$NAME.tar.gz
 
 wget http://llvm.org/releases/3.2/$TARNAME
 tar -zxvf $TARNAME
+mkdir -p ~/apps/
 mv $NAME ~/apps/llvm
 rm $TARNAME
