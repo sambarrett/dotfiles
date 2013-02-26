@@ -42,4 +42,7 @@ sudo apt-get install \
   gconf-editor \
   flashplugin-installer \
   dconf-tools \
-  openjdk-7-jdk
+  openjdk-7-jdk \
+  keepassx \
+  rar \
+  r-core
