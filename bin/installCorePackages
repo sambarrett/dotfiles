@@ -41,4 +41,5 @@ sudo apt-get install \
   imagemagick \
   gconf-editor \
   flashplugin-installer \
-  dconf-tools
+  dconf-tools \
+  openjdk-7-jdk
