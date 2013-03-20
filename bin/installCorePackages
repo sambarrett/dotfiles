@@ -45,4 +45,6 @@ sudo apt-get install \
   openjdk-7-jdk \
   keepassx \
   rar \
-  r-core
+  r-core \
+  meld \
+  texlive-science
