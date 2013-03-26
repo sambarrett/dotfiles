@@ -18,6 +18,7 @@ links = [
   Link('gestures.dat'),
   Link('bashrc'),
   Link('sshconfig','.ssh/config'),
+  Link('subversionConfig','.subversion/config'),
   Link('bin','bin'),
   Link('toprc'),
   Link('inputrc'),
@@ -25,7 +26,7 @@ links = [
   Link('gitignore'),
   Link('xmobarrc',computerSpecific=True),
   Link('trayerStart','bin/trayerStart',computerSpecific=True),
-  Link('xmonad.desktop','/usr/share/xsessions/xmonad.desktop',sudo=True)
+  Link('xmonad.desktop','/usr/share/xsessions/xmonad.desktop',sudo=True),
 ]
 
 import os, socket, sys, subprocess
