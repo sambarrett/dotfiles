@@ -47,4 +47,5 @@ sudo apt-get install \
   rar \
   r-core \
   meld \
-  texlive-science
+  texlive-science \
+  ubuntu-restricted-extras
