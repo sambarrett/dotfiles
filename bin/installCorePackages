@@ -48,4 +48,5 @@ sudo apt-get install \
   r-core \
   meld \
   texlive-science \
-  ubuntu-restricted-extras
+  ubuntu-restricted-extras \
+  dos2unix
