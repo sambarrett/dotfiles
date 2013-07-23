@@ -37,8 +37,8 @@ myManageHooks = composeAll . concat $
 	]
 	where
 		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool","Tk","mplayer2"]
-		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester", "Teleop", "Figure 1", "Config Editor"]
-		musicPlayers = ["Songbird","Guayadeque","Pithos"]
+		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester", "Teleop", "Figure 1", "Config Editor", "Soccer Visualizer"]
+		musicPlayers = ["Songbird","Guayadeque","Pithos","Rythmbox"]
 		classIgnores = ["stalonetray","trayer"]
 
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
