@@ -2,6 +2,7 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Layout.NoBorders
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
@@ -9,13 +10,13 @@ import qualified XMonad.StackSet as W
 
 
 main = do
-	xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmobarrc"
+	xmproc <- spawnPipe "/usr/bin/xmobar ~/.xmobarrc --screen=0"
 	xmonad $ defaultConfig
 		{
 			modMask = mod1Mask,
 			manageHook = manageDocks <+> myManageHooks
 				<+> manageHook defaultConfig,
-			layoutHook = avoidStruts $ layoutHook defaultConfig,
+			layoutHook = lessBorders OnlyFloat $ avoidStruts $ layoutHook defaultConfig,
 			{-startupHook = startup,-}
 			logHook = dynamicLogWithPP $ xmobarPP
 				{
@@ -35,9 +36,9 @@ myManageHooks = composeAll . concat $
 		[ className =? c --> doIgnore | c <- classIgnores]
 	]
 	where
-		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool","Tk"]
-		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester", "Teleop", "Figure 1", "Config Editor"]
-		musicPlayers = ["Songbird","Guayadeque","Pithos"]
+		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool","Tk","mplayer2"]
+		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester", "Teleop", "Figure 1", "Config Editor", "Soccer Visualizer"]
+		musicPlayers = ["Songbird","Guayadeque","Pithos","Rythmbox"]
 		classIgnores = ["stalonetray","trayer"]
 
 myWorkspaces = ["1","2","3","4","5","6","7","8","9"]

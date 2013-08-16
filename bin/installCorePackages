@@ -1,0 +1,52 @@
+#!/bin/bash
+
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - 
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+sudo add-apt-repository ppa:kevin-mehall/pithos-daily
+sudo add-apt-repository ppa:gnurubuntu/rubuntu
+sudo apt-add-repository ppa:tualatrix/ppa
+
+sudo apt-get update
+sudo apt-get upgrade
+
+sudo apt-get install \
+  xmonad \
+  xmobar \
+  trayer \
+  nautilus-dropbox \
+  gnome-screensaver \
+  workrave \
+  feh \
+  build-essential \
+  git \
+  subversion \
+  vim-gnome \
+  google-chrome-stable \
+  python-numpy \
+  python-scipy \
+  python-matplotlib \
+  firefox \
+  libclang-common-dev \
+  libboost-dev \
+  unetbootin \
+  cmake ccache libqt4-dev libqt4-core subversion swig2.0 lua5.1 cmake-curses-gui libmpfr-dev libqwt5-qt4-dev libdevil-dev libode-dev ruby1.8-dev libqglviewer-qt4-dev libnotify-bin\
+  aptitude \
+  ipython \
+  icedtea-7-plugin \
+  suckless-tools \
+  pithos \
+  rcsoccersim \
+  fping \
+  ubuntu-tweak \
+  imagemagick \
+  gconf-editor \
+  flashplugin-installer \
+  dconf-tools \
+  openjdk-7-jdk \
+  keepassx \
+  rar \
+  r-core \
+  meld \
+  texlive-science \
+  ubuntu-restricted-extras \
+  dos2unix

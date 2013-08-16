@@ -1,0 +1,18 @@
+#!/bin/bash
+
+red='<fc=#ff0000>'
+green='<fc=#00ff00>'
+yellow='<fc=#ffff00>'
+off='</fc>'
+
+now=`cat /sys/class/power_supply/BAT0/energy_now`
+full=`cat /sys/class/power_supply/BAT0/energy_full`
+perc=`echo "$now * 100 / $full" | bc`
+
+color=$green
+if [[ $perc -lt 25 ]]; then
+  color=$red
+elif [[ $perc -lt 50 ]]; then
+  color=$yellow
+fi
+echo "Batt: $color$perc%$off"

@@ -1,0 +1,19 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
+import gnomekeyring, getpass
+
+keyring = raw_input('Keyring (login):')
+if keyring == '':
+  keyring = 'login'
+name = raw_input('Name/label')
+assert(name != '')
+username = raw_input('Username (blank for none)')
+password = getpass.getpass('Password')
+assert(password != '')
+
+attrs = {}
+if username != '':
+  attrs['username'] = username
+
+gnomekeyring.item_create_sync(keyring,gnomekeyring.ITEM_GENERIC_SECRET, name,attrs,password,True)

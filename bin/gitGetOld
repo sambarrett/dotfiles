@@ -1,0 +1,39 @@
+#!/bin/bash
+
+if [ $# -ne 2 ]; then
+  echo "Usage: $(basename $0) filename commit"
+  exit 1
+fi
+
+filename=$1
+commit=$2
+
+if [ ! -f $filename ]; then
+  if [ ! -f $commit ]; then
+    echo "File: $filename not found"
+    echo "Other arg: $commit is not a valid filename either"
+    exit 1
+  else
+    echo "Pretending you gave args in other order"
+    temp=$filename
+    filename=$commit
+    commit=$temp
+  fi
+fi
+
+oldFilename=$filename.old
+
+if [ -f $oldFilename ]; then
+  echo -n "$oldFilename already exists, overwrite (y/n)? "
+  read ans
+  if [ $ans == "y" -o $ans == "Y" -o $ans = "yes" ]; then
+    echo "Continuing"
+  else
+    echo "Exiting"
+    exit 0
+  fi
+fi
+
+git checkout $commit -- $filename
+cp $filename $oldFilename
+git checkout HEAD -- $filename
