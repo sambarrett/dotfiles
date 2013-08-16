@@ -13,16 +13,17 @@ fi
 [ -z "$PS1" ] && return
 
 # set executable path
+export PATH=/projects/agents3/sam/robocup/apps/bin:$PATH
 export PATH=$HOME/bin:$PATH # make my bin first, don't mess up my bin or bad things can happen
-export PATH=$PATH:/lusr/opt/qt-4.3.2/bin:/lusr/condor/bin:/lusr/opt/condor/bin:
-export PATH=$PATH:~/apps/usr/bin:~/apps/bin:~/bin/transfer-bin
+#export PATH=$PATH:/lusr/opt/qt-4.3.2/bin:/lusr/condor/bin:/lusr/opt/condor/bin:
+#export PATH=$PATH:~/apps/usr/bin:~/apps/bin:~/bin/transfer-bin
 # set ld library path
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lusr/opt/qt-4.4.0/lib:/u/sbarrett/apps/lib
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lusr/opt/qt-4.4.0/lib:/u/sbarrett/apps/lib
 # setup the python path
 #export PYTHONPATH=$PYTHONPATH:/lusr/lib/python2.5/site-packages
 # compile flags
-export CFLAGS="-I/u/sbarrett/apps/include -L/u/sbarrett/apps/lib"
-export CPPFLAGS="-I/u/sbarrett/apps/include -L/u/sbarrett/apps/lib"
+#export CFLAGS="-I/u/sbarrett/apps/include -L/u/sbarrett/apps/lib"
+#export CPPFLAGS="-I/u/sbarrett/apps/include -L/u/sbarrett/apps/lib"
 
 name=`hostname`
 if [ $name = "ubik" ] || [ $name = "scannerdarkly" ]
@@ -160,16 +161,16 @@ then
   PS1="`uname -n`$ "
   NNTPSERVER="newshost.cc.utexas.edu"
 
-  PRINTER=lw50
+  PRINTER=lw41
 
   export MAIL PS1 EDITOR MAILER PRINTER
 
   export HISTCONTROL=ignoredups
   alias ls='ls --color=always'
   alias ll='ls -l'
-  alias ctags='~/apps/bin/ctags'
-  alias vim='~/apps/bin/vim'
-  alias gvim='~/apps/bin/gvim'
+  #alias ctags='~/apps/bin/ctags'
+  #alias vim='~/apps/bin/vim'
+  #alias gvim='~/apps/bin/gvim'
   alias condor_qr='condor_q sbarrett | grep running'
   alias condor_qar='condor_q | grep running'
   alias condor_status_total="condor_status | grep X86_64 | grep Unclaimed | egrep -e 'glamdring|narsil|lhug|orcrist|rhavan|uvanimor' | wc -l"
