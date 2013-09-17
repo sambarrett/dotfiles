@@ -5,11 +5,12 @@ Config { font = "-misc-fixed-*-*-*-*-18-*-*-*-*-*-*-*"
        , lowerOnStart = True
        , commands = [ Run Cpu ["-L","3","-H","50","--normal","green","--high","red"] 10
                     , Run Memory ["-t","Mem: <usedratio>%"] 10
+                    , Run Com "battery" [] "battery" 10
                     , Run Date "%b %_d %I:%M" "date" 10
 										, Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
-       , template = "%cpu% | %memory% } %StdinReader% { %date% "
+       , template = "%cpu% | %memory% | %battery%} %StdinReader% { %date% "
        }
 
