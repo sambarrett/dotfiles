@@ -11,4 +11,6 @@
 [difftool]
   prompt = false
 [core]
-  excludesfile = /home/sam/.gitignore
+	excludesfile = ~/.gitignore
+[push]
+	default = simple
