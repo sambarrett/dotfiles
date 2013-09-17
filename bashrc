@@ -15,6 +15,7 @@ fi
 # set executable path
 export PATH=$HOME/bin:$PATH # make my bin first, don't mess up my bin or bad things can happen
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/research/adhoc2/robocup/ut-agent/librcsc-4.1.0/libs/lib/
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 
 name=`hostname`
 if [ $name = "ubik" ] || [ $name = "scannerdarkly" ]
