@@ -1,8 +1,9 @@
 #!/bin/bash
 
-gnome-terminal -e "ssh lab"
-gnome-terminal -e "ssh submit64"
 gnome-terminal -e "ssh hamm"
-gnome-terminal -e "ssh submit32"
 sleep 1
-ssh lab
+gnome-terminal -e "ssh hamm"
+sleep 1
+gnome-terminal -e "ssh hamm"
+sleep 1
+ssh hamm
