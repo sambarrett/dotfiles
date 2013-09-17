@@ -148,3 +148,6 @@ set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
 set wildignore+=.DS_Store,.git,.hg,.svn
 set wildignore+=*~,*.swp,*.tmp
 set wildignore+=*.pyc
+set foldmethod=indent
+
+let g:yankring_history_file='.yankring_history'
