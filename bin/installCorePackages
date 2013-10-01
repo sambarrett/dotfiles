@@ -48,5 +48,7 @@ sudo apt-get install \
   r-core \
   meld \
   texlive-science \
+  texlive-fonts-extra \
   ubuntu-restricted-extras \
-  dos2unix
+  dos2unix \
+  inkscape
