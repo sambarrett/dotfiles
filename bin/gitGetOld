@@ -8,6 +8,7 @@ fi
 filename=$1
 commit=$2
 
+# switch order if necessary
 if [ ! -f $filename ]; then
   if [ ! -f $commit ]; then
     echo "File: $filename not found"
@@ -21,8 +22,8 @@ if [ ! -f $filename ]; then
   fi
 fi
 
-oldFilename=$filename.old
-
+# old filename
+oldFilename="${filename%.*}.old.${filename##*.}"
 if [ -f $oldFilename ]; then
   echo -n "$oldFilename already exists, overwrite (y/n)? "
   read ans
@@ -34,6 +35,12 @@ if [ -f $oldFilename ]; then
   fi
 fi
 
-git checkout $commit -- $filename
-cp $filename $oldFilename
-git checkout HEAD -- $filename
+# get pathing correct
+currentGitDir=`git rev-parse --show-prefix`
+filename=$currentGitDir$filename
+
+# just do it already
+git show $commit:$filename > $oldFilename
+#git checkout $commit -- $filename
+#cp $filename $oldFilename
+#git checkout HEAD -- $filename
