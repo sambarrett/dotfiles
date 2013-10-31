@@ -51,4 +51,5 @@ sudo apt-get install \
   texlive-fonts-extra \
   ubuntu-restricted-extras \
   dos2unix \
-  inkscape
+  inkscape \
+  ffmpeg
