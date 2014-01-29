@@ -20,7 +20,7 @@ gnome-volume-control-applet &
 gnome-power-manager &
 nm-applet --sm-disable &
 workrave &
-feh --bg-scale /home/sam/backgrounds/calvin-backup.jpg
+feh --bg-scale /home/sam/backgrounds/calvin.jpg
 xinput --set-prop "KMEPC USB Full Speed Gaming Mouse" "Device Accel Constant Deceleration" 2
 
 horatio &
