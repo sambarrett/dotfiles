@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+  echo "Usage: syncFromSchool path [arg ...]"
+  exit 1
+fi
+
+base=`python -c "import os.path; print os.path.relpath('$PWD', '$HOME')"`
+path=$1
+
+shift
+
+rsync -avz $@ school:$base/$path ~/$base/$path
