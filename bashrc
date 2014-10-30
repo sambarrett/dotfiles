@@ -219,3 +219,4 @@ fi
 #if [ -f ~/programming/smartcomputer/bashrc ]; then
   #. ~/programming/smartcomputer/bashrc
 #fi
+export NAO_HOME=~/nao/trunk

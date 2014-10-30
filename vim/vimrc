@@ -69,6 +69,10 @@ nnoremap <silent> <F2> :TMiniBufExplorer<CR>
 
 inoremap jk <Esc>
 inoremap kj <Esc>
+inoremap kkkk <Esc>
+inoremap llll <Esc>
+inoremap jjjj <Esc>
+inoremap hhhh <Esc>
 
 let g:UltiSnipsSnippetDirectories=["UltiSnips","personal/snippets"]
 
@@ -103,10 +107,10 @@ let ropevim_guess_project = 1
 let ropevim_enable_shortcuts = 1
 let ropevim_extended_complete = 1
 inoremap <C-t> <C-R>=RopeCodeAssistInsertMode() <CR>
-map <Leader>u :RopeUndo <CR>
-map <Leader>r :RopeRedo <CR>
-map <Leader>g :RopeGotoDefinition <CR>
-map <Leader>d :RopeShowDoc <CR>
+"map <Leader>u :RopeUndo <CR>
+"map <Leader>r :RopeRedo <CR>
+"map <Leader>g :RopeGotoDefinition <CR>
+"map <Leader>d :RopeShowDoc <CR>
 let ropevim_vim_completion=1
 let ropevim_enable_autoimport=1
 let ropevim_autoimport_modules = ["os","shutil"]
@@ -136,6 +140,8 @@ map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
 set guifont=DejaVu\ Sans\ Mono\ 12
 
 let g:Tex_FoldedEnvironments = ',frame,thesisabstract,wrapfigure'
+let g:Tex_FoldedCommands = ',sectionnotoc'
+let g:tex_indent_brace=0
 
 let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=232

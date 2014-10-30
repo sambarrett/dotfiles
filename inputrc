@@ -1,5 +1,5 @@
-set editing-mode vi
-set keymap vi
+set editing-mode emacs
+set keymap emacs
 set convert-meta on
 $if mode=vi
   set keymap vi-command
