@@ -26,15 +26,15 @@ let mapleader=","
 "au BufRead,BufNewFile *.txt set filetype=txt
 "autocmd Filetype txt set spell
 
-python << endpython
-import os, vim
-cwd = os.getcwd()
-naoHome = os.getenv('NAO_HOME')
-if naoHome is not None:
-  prefix = os.path.commonprefix([cwd,naoHome])
-  if os.path.samefile(prefix,naoHome):
-    vim.command("set makeprg=$NAO_HOME/build/compile") 
-endpython
+"python << endpython
+"import os, vim
+"cwd = os.getcwd()
+"naoHome = os.getenv('NAO_HOME')
+"if naoHome is not None:
+"  prefix = os.path.commonprefix([cwd,naoHome])
+"  if os.path.samefile(prefix,naoHome):
+"    vim.command("set makeprg=$NAO_HOME/build/compile") 
+"endpython
 
 " switch to directory of current file
 command! CD cd %:p:h
