@@ -1,55 +1,8 @@
-# Get the system wide default PATH.  
-# It provides access to software you need.  It differs from one
-# platform to another.  The department staff maintains it as a
-# basic part of your working environment.  We will be very reluctant
-# to bail you out if you ignore this warning and munge your PATH.
-# !! DO NOT REMOVE THIS BLOCK !!
-if [ -f /lusr/lib/misc/path.sh ]; then
-  . /lusr/lib/misc/path.sh
-fi
-# !! DO NOT REMOVE THIS BLOCK !!
-
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
 # set executable path
-export PATH=/projects/agents3/sam/robocup/apps/bin:$PATH
 export PATH=$HOME/bin:$PATH # make my bin first, don't mess up my bin or bad things can happen
-#export PATH=$PATH:/lusr/opt/qt-4.3.2/bin:/lusr/condor/bin:/lusr/opt/condor/bin:
-#export PATH=$PATH:~/apps/usr/bin:~/apps/bin:~/bin/transfer-bin
-# set ld library path
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lusr/opt/qt-4.4.0/lib:/u/sbarrett/apps/lib
-# setup the python path
-#export PYTHONPATH=$PYTHONPATH:/lusr/lib/python2.5/site-packages
-# compile flags
-#export CFLAGS="-I/u/sbarrett/apps/include -L/u/sbarrett/apps/lib"
-#export CPPFLAGS="-I/u/sbarrett/apps/include -L/u/sbarrett/apps/lib"
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/research/adhoc2/robocup/ut-agent/librcsc-4.1.0/libs/lib/
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
-
-name=`hostname`
-if [ $name = "ubik" ] || [ $name = "scannerdarkly" ]
-then
-  onLabMachine=
-else
-  onLabMachine=y
-fi
-
-# Auto-screen invocation. see: http://taint.org/wk/RemoteLoginAutoScreen
-# if we're coming from a remote SSH connection, in an interactive session
-# then automatically put us into a screen(1) session.   Only try once
-# -- if $STARTED_SCREEN is set, don't try it again, to avoid looping
-# if screen fails for some reason.
-if [ "$PS1" != "" -a "${STARTED_SCREEN:-x}" = x -a "${SSH_TTY:-x}" != x ]
-then
-  STARTED_SCREEN=1 ; export STARTED_SCREEN
-  [ -d $HOME/lib/screen-logs ] || mkdir -p $HOME/lib/screen-logs
-  sleep 1
-  byobu -RR && exit 0
-  # normally, execution of this rc script ends here...
-  echo "Screen failed! continuing with normal bash startup"
-fi
-# [end of auto-screen snippet]
 
 # don't put duplicate lines in the history. See bash(1) for more options
 # ... or force ignoredups and ignorespace
@@ -70,7 +23,7 @@ shopt -s checkwinsize
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
@@ -115,15 +68,9 @@ function PromptExitCode()
   else
     RET_PROMPT="\[${RED}\][${RETCODE}]\[${OFF}\]"
   fi
-  MYPWD=`pwd | sed 's/\/home\/sam/\~/' | sed 's/\/v\/filer4b\/v20q001\/sbarrett/\~/' | sed 's/\/u\/sbarrett/\~/'`
-  if [ $onLabMachine ]
-  then
-    PROMPT="$USERNAME\h:${MYPWD}${RET_PROMPT}\$ "
-    PS1="\[\033];\h:${MYPWD}\007\]${PROMPT}"
-  else
-    PROMPT="$USERNAME${MYPWD}${RET_PROMPT}\$ "
-    PS1="\[\033];${MYPWD}\007\]${PROMPT}"
-  fi
+  MYPWD=`pwd | sed 's/\/home\/sam/\~/'`
+  PROMPT="$USERNAME${MYPWD}${RET_PROMPT}\$ "
+  PS1="\[\033];${MYPWD}\007\]${PROMPT}"
 }
 case "$TERM" in
 xterm*|rxvt*|screen*)
@@ -133,7 +80,6 @@ xterm*|rxvt*|screen*)
   ;;
 esac
 
-export GREP_OPTIONS="--exclude-dir=.svn"
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -141,7 +87,9 @@ if [ -x /usr/bin/dircolors ]; then
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
-    export GREP_OPTIONS="$GREP_OPTIONS --color=auto"
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
 fi
 
 # some more ls aliases
@@ -149,43 +97,13 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-alias g="egrep --exclude-dir=.svn --exclude=\*tags\* --exclude=\*core_wrap.cpp\* -I -n "
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
 NUM_PROCESSORS=`grep -c processor /proc/cpuinfo`
 alias make="make -j ${NUM_PROCESSORS}"
 alias vime="vim"
-
-if [ $onLabMachine ]
-then
-  export PATH=$PATH:/lusr/opt/qt-4.3.2/bin:/lusr/condor/bin:/lusr/opt/condor/bin:
-  export PATH=$PATH:~/apps/usr/bin:~/apps/bin:~/bin/transfer-bin
-  # set ld library path
-  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lusr/opt/qt-4.4.0/lib:/u/sbarrett/apps/lib
-  # setup the python path
-  #export PYTHONPATH=$PYTHONPATH:/lusr/lib/python2.5/site-packages
-  # compile flags
-  export CFLAGS="-I/u/sbarrett/apps/include -L/u/sbarrett/apps/lib"
-  export CPPFLAGS="-I/u/sbarrett/apps/include -L/u/sbarrett/apps/lib"
-
-  MAIL=${HOME}/mailbox
-  MAILER=mush
-  EDITOR=vi
-  PS1="`uname -n`$ "
-  NNTPSERVER="newshost.cc.utexas.edu"
-
-  PRINTER=lw41
-
-  export MAIL PS1 EDITOR MAILER PRINTER
-
-  export HISTCONTROL=ignoredups
-  alias ls='ls --color=always'
-  alias ll='ls -l'
-  #alias ctags='~/apps/bin/ctags'
-  #alias vim='~/apps/bin/vim'
-  #alias gvim='~/apps/bin/gvim'
-  alias condor_qr='condor_q sbarrett | grep running'
-  alias condor_qar='condor_q | grep running'
-  alias condor_status_total="condor_status | grep X86_64 | grep Unclaimed | egrep -e 'glamdring|narsil|lhug|orcrist|rhavan|uvanimor' | wc -l"
-fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -199,24 +117,14 @@ fi
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  fi
 fi
 
-set -o vi
-# completions
-complete -f -o default -X '!*.+(condor|CONDOR)' condor_submit
-
-
-if [ -f ~/.bashrc.nao ]; then
-  . ~/.bashrc.nao
+if [ -f ~/.bashrc_additions ]; then
+  . ~/.bashrc_additions
 fi
-
-#if [ -f ~/.bashrc.ros ]; then
-  #. ~/.bashrc.ros
-#fi
-
-#if [ -f ~/programming/smartcomputer/bashrc ]; then
-  #. ~/programming/smartcomputer/bashrc
-#fi
-export NAO_HOME=~/nao/trunk

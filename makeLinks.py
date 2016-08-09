@@ -46,6 +46,7 @@ def handleLink(linkName,source,make,sudo):
     except OSError as err:
       print >>sys.stderr,'Failed to make link for',source,link
       print >>sys.stderr,err
+      print >>sys.stderr,'Continuing'
   else:
     try:
       if sudo:

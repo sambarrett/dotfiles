@@ -1,0 +1,20 @@
+#!/bin/bash
+
+sudo apt-get update
+sudo apt-get upgrade
+
+sudo apt-get install \
+  xmonad \
+  xmobar \
+  trayer \
+  build-essential \
+  git \
+  subversion \
+  vim-gnome \
+  aptitude \
+  ipython \
+  suckless-tools \
+  keepassx \
+  meld \
+  dos2unix \
+  inkscape
