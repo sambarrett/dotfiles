@@ -2,11 +2,13 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Layout.NoBorders
 import XMonad.Util.Run(spawnPipe)
 import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 import qualified XMonad.StackSet as W
+import Graphics.X11.ExtraTypes.XF86
 
 
 main = do
@@ -16,6 +18,7 @@ main = do
 			modMask = mod1Mask,
 			manageHook = manageDocks <+> myManageHooks
 				<+> manageHook defaultConfig,
+      handleEventHook = fullscreenEventHook,
 			layoutHook = lessBorders OnlyFloat $ avoidStruts $ layoutHook defaultConfig,
 			{-startupHook = startup,-}
 			logHook = dynamicLogWithPP $ xmobarPP
@@ -36,8 +39,8 @@ myManageHooks = composeAll . concat $
 		[ className =? c --> doIgnore | c <- classIgnores]
 	]
 	where
-		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool","Tk","mplayer2"]
-		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester", "Teleop", "Figure 1", "Config Editor", "Soccer Visualizer"]
+		classFloats = ["Gimp","Vncviewer","Webots-bin","UTNaoTool","Tk","mplayer2", "python2.7"]
+		titleFloats = ["Pursuit Simulation","Gesture Trainer", "Gesture Tester", "Teleop", "Figure 1", "Config Editor", "Soccer Visualizer", "Kanban"]
 		musicPlayers = ["Songbird","Guayadeque","Pithos","Rythmbox","Ario"]
 		classIgnores = ["stalonetray","trayer"]
 
@@ -50,7 +53,18 @@ myKeys =
 		((mod1Mask, xK_u), spawn "python /home/sam/programming/gestures/test.py"),
 		((mod1Mask,xK_Print), spawn "sleep 0.2; scrot -s '/home/sam/.screenshot/%Y-%m-%d-%H-%M-%S-scrot.png'"),
 		((0,xK_Print), spawn "scrot '/home/sam/.screenshot/%Y-%m-%d-%H-%M-%S-scrot.png'"),
-    ((mod1Mask, xK_q), spawn "/usr/bin/xmonad --recompile; /usr/bin/xmonad --restart")
+    ((mod1Mask, xK_q), spawn "/usr/bin/xmonad --recompile; /usr/bin/xmonad --restart"),
+    -- volume control
+    ((0, xF86XK_AudioLowerVolume), spawn "amixer set Master 4-"),
+    ((0, xF86XK_AudioRaiseVolume), spawn "amixer set Master 4+"),
+    ((0, xF86XK_AudioMute),  spawn "amixer -D pulse set Master 1+ toggle"),
+    ((0, xF86XK_AudioPlay),  spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"),
+    ((shiftMask, xK_F3), spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Prev"),
+    ((shiftMask, xK_F4), spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"),
+    ((shiftMask, xK_F5), spawn "amixer set Master 4-"),
+    ((shiftMask, xK_F6), spawn "amixer set Master 4+"),
+    ((shiftMask, xK_F7),  spawn "amixer -D pulse set Master 1+ toggle"),
+    ((shiftMask, xK_F8),  spawn "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
 	]
 	++ -- important since ff. is a list itself, can't just put inside above list
 	[((otherModMasks .|. mod1Mask, key), windows $ action tag)

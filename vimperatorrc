@@ -1,0 +1,6 @@
+set noautocomplete
+set hintchars="aoeuidhtns"
+noremap ; :
+colorscheme vimPgray
+set toolbars=nonavigation
+ignorekeys add -except=g,t,T mail.google.com
