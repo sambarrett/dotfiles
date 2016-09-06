@@ -40,7 +40,7 @@ if __name__ == '__main__':
     opts = parser.parse_args()
     
     if opts.action == Action.edit:
-        editByDate(opts.base,datetime.date.today())
+        editByDate(opts.dir,opts.base,datetime.date.today())
     elif opts.action == Action.list:
         for filename in getFilesMatchingPattern(opts.dir,opts.base):
             print filename
