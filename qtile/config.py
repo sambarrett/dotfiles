@@ -109,7 +109,7 @@ widget_defaults = dict(
 )
 
 
-def get_status_bar_elements(conf):
+def get_status_bar_elements(conf, is_primary):
     status_bar_elements = []
     status_bar_elements += [
         widget.TextBox(text='CPU:', fontsize=12),
@@ -131,12 +131,15 @@ def get_status_bar_elements(conf):
         widget.GroupBox(fontsize=12, this_current_screen_border='#FF0000'),
         widget.WindowName(fontsize=12),
         widget.sep.Sep(),
-        widget.Systray(),
+    ]
+    if is_primary:
+        status_bar_elements.append(widget.Systray())
+    status_bar_elements += [
         widget.Clock(format='%b %d %I:%M', fontsize=12),
     ]
     return status_bar_elements
 
-screens = [Screen(bottom=bar.Bar(get_status_bar_elements(config), 26),) for i in range(config['num_screens'])]
+screens = [Screen(bottom=bar.Bar(get_status_bar_elements(config, i == 0), 26),) for i in range(config['num_screens'])]
 
 # Drag floating layouts.
 mouse = [
