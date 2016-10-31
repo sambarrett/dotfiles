@@ -4,4 +4,4 @@ nm-applet --sm-disable &
 pnmixer &
 feh --bg-scale /home/sam/dotfiles/background/calvin.jpg
 xinput --set-prop "KMEPC USB Full Speed Gaming Mouse" "Device Accel Constant Deceleration" 2
-killall syndaemon; syndaemon -i 1 -K -R -d
+xinput --set-prop "DELL0741:00 06CB:7E7E Touchpad" "Synaptics Tap Time" 0
