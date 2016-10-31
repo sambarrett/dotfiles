@@ -2,12 +2,18 @@
 url=http://apod.nasa.gov/apod/
 #url=http://apod.nasa.gov/apod/ap130213.html
 #url=http://apod.nasa.gov/apod/ap130918.html
+#url=http://apod.nasa.gov/apod/ap160804.html
 prefix=ch_
 if [ $# -gt 0 ]; then
   url=$1
 fi
 imageurl=`curl $url 2> /dev/null | grep IMG | cut -d\" -f2` 
 filename=`echo $imageurl | cut -d/ -f3`
+if [ -z $filename ]; then
+  echo "Problem finding filename"
+  exit 2
+fi
+
 curl http://apod.nasa.gov/apod/$imageurl -o $filename 2> /dev/null
 size=`identify $filename | cut -d' ' -f3`
 
