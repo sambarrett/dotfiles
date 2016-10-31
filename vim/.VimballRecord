@@ -1,2 +1,0 @@
-conque_1.1.vba: call delete('/home/sam/.vim/autoload/conque_term.vim')|call delete('/home/sam/.vim/doc/conque_term.txt')|call delete('/home/sam/.vim/plugin/conque_term.vim')|call delete('/home/sam/.vim/syntax/conque_term.vim')
-supertab.vba: call delete('/home/sam/.vim/doc/supertab.txt')|call delete('/home/sam/.vim/plugin/supertab.vim')

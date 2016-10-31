@@ -1,159 +1,87 @@
-filetype off 
-call pathogen#infect()
+set nocompatible
 
-set nocp
+" use the Plug plugin manager, all plugins will be included in that config file
+source $HOME/.vim/plug.vim
 
-syntax on
-set ai
-"set si
-set ts=2
-set sw=2
-set hlsearch
-set mouse=a
-filetype plugin on
-filetype indent on
-set backspace=indent,eol,start
-set ruler
-set modeline
-let g:tex_flavor='latex'
-let g:miniBufExplMapWindowNavVim = 1
-set nospell
-set expandtab
-set completeopt+=menuone,longest,preview
-let mapleader=","
-
-"autocmd Filetype tex set spell
-"au BufRead,BufNewFile *.txt set filetype=txt
-"autocmd Filetype txt set spell
-
-"python << endpython
-"import os, vim
-"cwd = os.getcwd()
-"naoHome = os.getenv('NAO_HOME')
-"if naoHome is not None:
-"  prefix = os.path.commonprefix([cwd,naoHome])
-"  if os.path.samefile(prefix,naoHome):
-"    vim.command("set makeprg=$NAO_HOME/build/compile") 
-"endpython
-
+let mapleader = ","
+" REMAP ; to :, nicer for commands
+noremap ; :
 " switch to directory of current file
 command! CD cd %:p:h
+" mouse support!
+set mouse+=a
+
+nnoremap <leader><space> :nohlsearch<cr>
+
+" Colors
+syntax enable               " This has to come after colorcolumn in order to draw it.
+set t_Co=256                " enable 256 colors
+colorscheme mydarkzen
+set hlsearch
+
+" commentary mappings
+nmap <leader>c<space> <Plug>CommentaryLine
+vmap <leader>c<space> <Plug>Commentary
+
+" Tabs
+set tabstop=2               " Show a tab as four spaces
+set shiftwidth=2            " Reindent is also four spaces
+set softtabstop=2           " When hit <tab> use four columns
+set expandtab               " Create spaces when I type <tab>
+set shiftround              " Round indent to multiple of 'shiftwidth'.
+set autoindent              " Put my cursor in the right place when I start a new line
+set modeline
+filetype plugin indent on   " Rely on file plugins to handle indenting
+
+autocmd Filetype python setlocal expandtab ts=4 sw=4 sts=4
+
+" Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
 
 " insert one character
 nnoremap <Space> :exec "normal i".nr2char(getchar())."\e"<CR>
-
-set t_Co=256
-colorscheme darkzen
-
-"look for the tag file going up the directories
-set tags=./tags;/
 
 "start at same position
 if has("autocmd")
   au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-"toggle into paste mode
-nnoremap <F4> :set invpaste paste?<CR>
-set pastetoggle=<F4>
-set showmode
+" switch windows
+noremap <C-h> <C-w>h
+noremap <C-l> <C-w>l
+noremap <C-i> <C-w>i
+noremap <C-j> <C-w>j
 
-"Toggle tagbar pane
-nnoremap <silent> <F1> :TagbarToggle<CR>
+" function for
+func! DeleteTrailingWS()
+  let oldhlsearch=&hlsearch
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+  let &hlsearch=oldhlsearch
+endfunc
+noremap <leader>w :call DeleteTrailingWS()<CR>
 
-"Toggle file tree pane
-nnoremap <silent> <F3> :NERDTreeToggle<CR>
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
-"Toggle buffer explorer
-nnoremap <silent> <F2> :TMiniBufExplorer<CR>
+let g:syntastic_python_python_exec = '/usr/bin/python3'
+let g:syntastic_python_flake8_args = '--max-line-length=120'
+let g:syntastic_python_checkers = ['flake8']
+"let g:pymode_python = 'python3'
 
-inoremap jk <Esc>
-inoremap kj <Esc>
-inoremap kkkk <Esc>
-inoremap llll <Esc>
-inoremap jjjj <Esc>
-inoremap hhhh <Esc>
+let g:UltiSnipsSnippetDirectories = ["UltiSnips","personal/snippets"]
+let g:UltiSnipsExpandTrigger = "<tab>"
 
-let g:UltiSnipsSnippetDirectories=["UltiSnips","personal/snippets"]
-
-" Tag bar configuration
-let g:tagbar_left = 1 "open on the left side
-let g:tagbar_autoclose = 1 "close after jumping to a tag
-let g:tagbar_autofocus = 1 "steal focus when opening
-
-" Command-T
-noremap <leader>o <Esc>:CommandT<CR>
-noremap <leader>O <Esc>:CommandTFlush<CR>
-noremap <leader>m <Esc>:CommandTBuffer<CR>
-
-let g:SuperTabDefaultCompletionType = "context"
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif 
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-" write files via sudo - stolen from https://github.com/tpope/vim-eunuch/
-command! -bar SudoWrite :
-      \ setlocal nomodified |
-      \ silent exe 'write !sudo tee % >/dev/null' |
-      \ let &modified = v:shell_error |
-      \ edit
-
-" python specific
-autocmd FileType python compiler pylint
-let g:pylint_onwrite = 0
-let g:pylint_signs = 0
-let g:pylint_show_rate = 0
-
-let ropevim_guess_project = 1
-let ropevim_enable_shortcuts = 1
-let ropevim_extended_complete = 1
-inoremap <C-t> <C-R>=RopeCodeAssistInsertMode() <CR>
-"map <Leader>u :RopeUndo <CR>
-"map <Leader>r :RopeRedo <CR>
-"map <Leader>g :RopeGotoDefinition <CR>
-"map <Leader>d :RopeShowDoc <CR>
-let ropevim_vim_completion=1
-let ropevim_enable_autoimport=1
-let ropevim_autoimport_modules = ["os","shutil"]
-
-" c++ specific
-let g:clang_use_library=1
-let g:clang_library_path=expand("$HOME/apps/llvm/lib/")
-let g:clang_complete_copen=1
-au BufWritePost *.cpp,*.c,*.h call g:ClangUpdateQuickFix()
-"autocmd FileType cpp let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-"let OmniCpp_ShowPrototypeInAbbr = 1
-"let OmniCpp_MayCompleteDot = 1
-"let OmniCpp_MayCompleteArrow = 1
-"let OmniCpp_MayCompleteScope = 1
-"let OmniCpp_SelectFirstItem = 2
-"let OmniCpp_LocalSearchDecl = 1
-
-" json specific
-autocmd BufNewFile,BufRead *.json set ft=javascript
-
-" REMAP ; to :, nicer for commands
-noremap ; :
-
-map <F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR>
-
-" font for gvim
-set guifont=DejaVu\ Sans\ Mono\ 12
-
-let g:Tex_FoldedEnvironments = ',frame,thesisabstract,wrapfigure'
-let g:Tex_FoldedCommands = ',sectionnotoc'
-let g:tex_indent_brace=0
-
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd ctermbg=232
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=233
-autocmd VimEnter,Colorscheme * :IndentGuidesEnable
-
-
-set wildignore+=*.a,*.o
-set wildignore+=*.bmp,*.gif,*.ico,*.jpg,*.png
-set wildignore+=.DS_Store,.git,.hg,.svn
-set wildignore+=*~,*.swp,*.tmp
-set wildignore+=*.pyc
-set foldmethod=indent
-
-let g:yankring_history_file='.yankring_history'
+let g:airline_theme='silver'
