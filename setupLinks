@@ -35,14 +35,15 @@ def handleLink(linkName, source, make, sudo):
             print(err, file=sys.stderr)
             print('Continuing', file=sys.stderr)
     else:
-        try:
-            if sudo:
-                subprocess.check_call(['sudo', 'unlink', link])
-            else:
-                os.unlink(link)
-        except OSError as err:
-            if err.errno != 2:  # errno 2 is if no such file exists
-                print(err, file=sys.stderr)
+        if os.path.exists(link):
+            try:
+                if sudo:
+                    subprocess.check_call(['sudo', 'unlink', link])
+                else:
+                    os.unlink(link)
+            except OSError as err:
+                if err.errno != 2:  # errno 2 is if no such file exists
+                    print(err, file=sys.stderr)
 
 
 def handleLinks(links, make=True, sudo=False):
