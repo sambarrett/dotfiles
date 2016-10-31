@@ -1,0 +1,16 @@
+[user]
+  name = Samuel Barrett
+  email = thesambarrett@gmail.com
+[alias]
+  st = status
+  revert = checkout
+  co = checkout
+  ci = commit
+[diff]
+  tool = meld
+[difftool]
+  prompt = false
+[core]
+	excludesfile = ~/.gitignore
+[push]
+	default = matching
