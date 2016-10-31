@@ -29,26 +29,50 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+  xterm-color) color_prompt=yes;;
 esac
 
 
 if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-  # We have color support; assume it's compliant with Ecma-48
-  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-  # a case would tend to support setf rather than setaf.)
-  color_prompt=yes
-    else
-  color_prompt=
-    fi
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    # We have color support; assume it's compliant with Ecma-48
+    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+    # a case would tend to support setf rather than setaf.)
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
 fi
+  
+RED='\e[1;31m'
+BLUE='\e[1;34m'
+YELLOW='\e[1;33m'
+OFF='\e[0m'
+
+find_git_branch() {
+  local branch
+  if branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null); then
+    if [[ "$branch" == "HEAD" ]]; then
+      branch="\[${RED}\]detached*\[${OFF}\]"
+    fi
+    git_branch="\[${BLUE}\]($branch)\[${OFF}\]"
+  else
+    git_branch=""
+  fi
+}
+
+find_git_dirty() {
+  local status=$(git status --porcelain 2> /dev/null)
+  if [[ "$status" != "" ]]; then
+    git_dirty="\[${YELLOW}\]*\[${OFF}\]"
+  else
+    git_dirty=""
+  fi
+}
 
 function PromptExitCode()
 {
   RETCODE="$?"
-  RED='\e[1;31m'
-  OFF='\e[0m'
   USERNAME=`whoami`
   if [ $USERNAME == 'sam' -o $USERNAME == 'sbarrett' ]
   then
@@ -69,7 +93,9 @@ function PromptExitCode()
     RET_PROMPT="\[${RED}\][${RETCODE}]\[${OFF}\]"
   fi
   MYPWD=`pwd | sed 's/\/home\/sam/\~/'`
-  PROMPT="$USERNAME${MYPWD}${RET_PROMPT}\$ "
+  find_git_branch
+  find_git_dirty
+  PROMPT="$USERNAME${MYPWD}${git_branch}${git_dirty}${RET_PROMPT}\$ "
   PS1="\[\033];${MYPWD}\007\]${PROMPT}"
 }
 case "$TERM" in
