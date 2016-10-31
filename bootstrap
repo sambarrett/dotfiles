@@ -48,4 +48,4 @@ sudo -H pip3 --upgrade pip3
 sudo -H pip3 install ipython numpy qtile
 
 #disable desktop so that it doesn't pop up as a separate "window" when nautilus gets opened.
-gsettings set org.gnome.destop.background show-destop-icons false
+gsettings set org.gnome.desktop.background show-desktop-icons false
