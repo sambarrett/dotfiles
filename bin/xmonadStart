@@ -13,7 +13,8 @@ export GNOME_KEYRING_PID
 #seahorse-daemon
 
 # previously in xmonad.hs startup
-trayerStart &
+trayerStart 0 &
+#trayerStart 1 &
 dropbox start &
 gnome-screensaver &
 gnome-volume-control-applet &
