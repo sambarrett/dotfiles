@@ -54,8 +54,9 @@ keys = [
     # Move windows up or down in current stack
     Key([mod, 'shift'], 'k', lazy.layout.shuffle_down()),
     Key([mod, 'shift'], 'j', lazy.layout.shuffle_up()),
+    Key([mod], 'Return', lazy.layout.swap_left()),
     # Switch window focus to other pane(s) of stack
-    Key([mod], 'space', lazy.layout.next()),
+    # Key([mod], 'space', lazy.layout.next()),
     # Swap panes of split stack
     Key([mod, 'shift'], 'space', lazy.layout.rotate()),
 
@@ -138,7 +139,7 @@ def handle_new_window(window):
 dgroups_key_binder = None
 dgroups_app_rules = []
 main = None
-follow_mouse_focus = True
+follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=float_rules, border_normal='#97ffff')
