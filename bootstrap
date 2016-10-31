@@ -45,7 +45,7 @@ sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
 sudo update-alternatives --config editor
 
 sudo -H pip3 --upgrade pip3
-sudo -H pip3 install ipython numpy qtile
+sudo -H pip3 install ipython numpy qtile neovim
 
 #disable desktop so that it doesn't pop up as a separate "window" when nautilus gets opened.
 gsettings set org.gnome.desktop.background show-desktop-icons false
