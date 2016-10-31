@@ -1,20 +1,51 @@
 #!/bin/bash
 
-sudo apt-get update
-sudo apt-get upgrade
+sudo add-apt-repository ppa:pithos/ppa  # pithos
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - # chrome
+sudo sh -c 'echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 
-sudo apt-get install \
-  xmonad \
-  xmobar \
-  trayer \
+sudo add-apt-repository ppa:neovim-ppa/unstable # neovim
+
+sudo apt update
+sudo apt upgrade
+
+sudo apt install \
   build-essential \
   git \
   subversion \
-  vim-gnome \
   aptitude \
-  ipython \
-  suckless-tools \
   keepassx \
   meld \
   dos2unix \
-  inkscape
+  inkscape \
+  feh \
+  google-chrome-stable \
+  pithos \
+  neovim \
+  python-dev \
+  python3-dev \
+  python-pip \
+  python3-pip \
+  python3-xcffib \
+  python3-cairocffi \
+  j4-dmenu-desktop \
+  gmrun \
+  pnmixer
+
+  # suckless-tools \
+  # xmonad \
+  # xmobar \
+  # trayer \
+
+sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
+sudo update-alternatives --config vi
+sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+sudo update-alternatives --config vim
+sudo update-alternatives --install /usr/bin/editor editor /usr/bin/nvim 60
+sudo update-alternatives --config editor
+
+sudo -H pip3 --upgrade pip3
+sudo -H pip3 install ipython numpy qtile
+
+#disable desktop so that it doesn't pop up as a separate "window" when nautilus gets opened.
+gsettings set org.gnome.destop.background show-destop-icons false
