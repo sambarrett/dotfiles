@@ -78,12 +78,13 @@ function PromptExitCode()
   then
     USERNAME=''
   else
-    if [ $onLabMachine ]
-    then
-      USERNAME="\[${RED}\]$USERNAME\[${OFF}\]@"
-    else
-      USERNAME="\[${RED}\]$USERNAME\[${OFF}\]:"
-    fi
+    USERNAME="\[${RED}\]$USERNAME\[${OFF}\]:"
+  fi
+
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    HOST="\h"
+  else
+    HOST=""
   fi
 
   if [[ "${RETCODE}" -eq "0" ]]
@@ -96,7 +97,7 @@ function PromptExitCode()
   find_git_branch
   find_git_dirty
   PROMPT="$USERNAME${MYPWD}${git_branch}${git_dirty}${RET_PROMPT}\$ "
-  PS1="\[\033];${MYPWD}\007\]${PROMPT}"
+  PS1="${HOST}\[\033];${MYPWD}\007\]${PROMPT}"
 }
 case "$TERM" in
 xterm*|rxvt*|screen*)
