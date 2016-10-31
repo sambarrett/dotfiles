@@ -29,9 +29,11 @@ from libqtile.command import lazy
 from libqtile import hook, layout, bar, widget
 import os
 import subprocess
+import socket
 
 mod = 'mod1'
 control = 'control'
+hostname = socket.gethostname()
 
 # xmonad style keybindings
 keys = [
@@ -85,29 +87,34 @@ widget_defaults = dict(
     padding=3,
 )
 
+status_bar_elements = []
+status_bar_elements += [
+    widget.TextBox(text='CPU:', fontsize=12),
+    # cpu uses family of dark orange colors
+    widget.CPUGraph(border_color='8b4500', fill_color='cd6600', graph_color='ee7600'),
+    widget.TextBox(text='Mem:', fontsize=12),
+    widget.MemoryGraph(),
+]
+if hostname in ['ubik']:
+    status_bar_elements += [
+        widget.TextBox(text='Bat:', fontsize=12),
+        widget.Battery(format='{char} {percent:2.0%}'),
+    ]
+status_bar_elements += [
+    widget.sep.Sep(),
+    widget.TextBox(text='Vol:', fontsize=12),
+    widget.Volume(),
+    widget.sep.Sep(),
+    widget.GroupBox(fontsize=12),
+    widget.WindowName(fontsize=12),
+    widget.sep.Sep(),
+    widget.Systray(),
+    widget.Clock(format='%b %d %I:%M', fontsize=12),
+]
+
 screens = [
     Screen(
-        bottom=bar.Bar(
-            [
-                widget.TextBox(text='CPU:', fontsize=12),
-                # cpu uses family of dark orange colors
-                widget.CPUGraph(border_color='8b4500', fill_color='cd6600', graph_color='ee7600'),
-                widget.TextBox(text='Mem:', fontsize=12),
-                widget.MemoryGraph(),
-                widget.TextBox(text='Bat:', fontsize=12),
-                widget.Battery(format='{char} {percent:2.0%}'),
-                widget.sep.Sep(),
-                widget.TextBox(text='Vol:', fontsize=12),
-                widget.Volume(),
-                widget.sep.Sep(),
-                widget.GroupBox(fontsize=12),
-                widget.WindowName(fontsize=12),
-                widget.sep.Sep(),
-                widget.Systray(),
-                widget.Clock(format='%b %d %I:%M', fontsize=12),
-            ],
-            26,
-        ),
+        bottom=bar.Bar(status_bar_elements, 26),
     ),
 ]
 
