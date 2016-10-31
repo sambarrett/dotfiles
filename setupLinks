@@ -85,6 +85,7 @@ if __name__ == '__main__':
         # Link('trayerStart', 'bin/trayerStart', computerSpecific=True),
         # Link('xmonad.desktop', '/usr/share/xsessions/xmonad.desktop', sudo=True),
     ]
-
+    if not(os.path.exists(os.path.expanduser('~/.subversion'))):
+        os.mkdir(os.path.expanduser('~/.subversion'))
     handleLinks(links, make=False, sudo=options.sudo)
     handleLinks(links, make=True, sudo=options.sudo)
