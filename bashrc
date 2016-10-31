@@ -45,8 +45,9 @@ if [ -n "$force_color_prompt" ]; then
 fi
   
 RED='\e[1;31m'
-BLUE='\e[1;34m'
+GREEN='\e[1;32m'
 YELLOW='\e[1;33m'
+BLUE='\e[1;34m'
 OFF='\e[0m'
 
 find_git_branch() {
@@ -82,7 +83,7 @@ function PromptExitCode()
   fi
 
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    HOST="\h"
+    HOST="\[${GREEN}\]\h\[${OFF}\]:"
   else
     HOST=""
   fi
