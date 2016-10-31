@@ -31,21 +31,18 @@ import os
 import subprocess
 import socket
 
+configs = {}
+configs['simulcra'] = {'battery': False, 'num_screens': 2}
+configs['ubik'] = {'battery': True, 'num_screens': 1}
+
+hostname = socket.gethostname()
+config = configs[hostname]
+
 mod = 'mod1'
 control = 'control'
-hostname = socket.gethostname()
 
 # xmonad style keybindings
 keys = [
-    # app launches
-    Key([mod, control], 't', lazy.spawn('gnome-terminal --hide-menubar')),
-    Key([mod, control], 'f', lazy.spawn('firefox')),
-    Key([mod], 'p', lazy.spawn('j4-dmenu-desktop')),
-    Key([mod, 'shift'], 'p', lazy.spawn('gmrun')),
-    Key([mod, control], 'l', lazy.spawn('gnome-screensaver-command -l')),
-    # kill
-    Key([mod, 'shift'], 'c', lazy.window.kill()),
-
     # layout management
     Key([mod], 'space', lazy.next_layout()),
     Key([mod], 'k', lazy.layout.down()),
@@ -62,9 +59,33 @@ keys = [
     # Swap panes of split stack
     Key([mod, 'shift'], 'space', lazy.layout.rotate()),
 
+    # switch monitors
+    Key([mod], 'comma', lazy.to_screen(0)),
+    Key([mod], 'period', lazy.to_screen(1)),
+
     # restarting qtile
     Key([mod, 'shift'], 'q', lazy.shutdown()),
     Key([mod], 'q', lazy.restart()),
+
+    # app launches
+    Key([mod, control], 't', lazy.spawn('gnome-terminal --hide-menubar')),
+    Key([mod, control], 'f', lazy.spawn('firefox')),
+    Key([mod], 'p', lazy.spawn('j4-dmenu-desktop')),
+    Key([mod, 'shift'], 'p', lazy.spawn('gmrun')),
+    Key([mod, control], 'l', lazy.spawn('gnome-screensaver-command -l')),
+    # kill
+    Key([mod, 'shift'], 'c', lazy.window.kill()),
+
+    # media control
+    Key(['shift'], 'F3', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos'
+        ' /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Prev')),
+    Key(['shift'], 'F4', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos'
+        ' /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next')),
+    Key(['shift'], 'F5', lazy.spawn('amixer set Master 4-')),
+    Key(['shift'], 'F6', lazy.spawn('amixer set Master 4+')),
+    Key(['shift'], 'F7', lazy.spawn('amixer -D pulse set Master 1+ toggle')),
+    Key(['shift'], 'F8', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos'
+        ' /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause')),
 ]
 
 groups = [Group(i) for i in '123456789']
@@ -76,8 +97,8 @@ for i in groups:
     keys.append(Key([mod, 'shift'], i.name, lazy.window.togroup(i.name)))
 
 layouts = [
-    layout.MonadTall(),
-    layout.Stack(),
+    layout.MonadTall(border_normal='#333333'),
+    layout.Stack(border_focus='#ff0000', border_normal='#333333'),
     layout.Max(),
 ]
 
@@ -87,36 +108,35 @@ widget_defaults = dict(
     padding=3,
 )
 
-status_bar_elements = []
-status_bar_elements += [
-    widget.TextBox(text='CPU:', fontsize=12),
-    # cpu uses family of dark orange colors
-    widget.CPUGraph(border_color='8b4500', fill_color='cd6600', graph_color='ee7600'),
-    widget.TextBox(text='Mem:', fontsize=12),
-    widget.MemoryGraph(),
-]
-if hostname in ['ubik']:
-    status_bar_elements += [
-        widget.TextBox(text='Bat:', fontsize=12),
-        widget.Battery(format='{char} {percent:2.0%}'),
-    ]
-status_bar_elements += [
-    widget.sep.Sep(),
-    widget.TextBox(text='Vol:', fontsize=12),
-    widget.Volume(),
-    widget.sep.Sep(),
-    widget.GroupBox(fontsize=12),
-    widget.WindowName(fontsize=12),
-    widget.sep.Sep(),
-    widget.Systray(),
-    widget.Clock(format='%b %d %I:%M', fontsize=12),
-]
 
-screens = [
-    Screen(
-        bottom=bar.Bar(status_bar_elements, 26),
-    ),
-]
+def get_status_bar_elements(conf):
+    status_bar_elements = []
+    status_bar_elements += [
+        widget.TextBox(text='CPU:', fontsize=12),
+        # cpu uses family of dark orange colors
+        widget.CPUGraph(border_color='8b4500', fill_color='cd6600', graph_color='ee7600'),
+        widget.TextBox(text='Mem:', fontsize=12),
+        widget.MemoryGraph(),
+    ]
+    if conf['battery']:
+        status_bar_elements += [
+            widget.TextBox(text='Bat:', fontsize=12),
+            widget.Battery(format='{char} {percent:2.0%}'),
+        ]
+    status_bar_elements += [
+        widget.sep.Sep(),
+        widget.TextBox(text='Vol:', fontsize=12),
+        widget.Volume(),
+        widget.sep.Sep(),
+        widget.GroupBox(fontsize=12, this_current_screen_border='#FF0000'),
+        widget.WindowName(fontsize=12),
+        widget.sep.Sep(),
+        widget.Systray(),
+        widget.Clock(format='%b %d %I:%M', fontsize=12),
+    ]
+    return status_bar_elements
+
+screens = [Screen(bottom=bar.Bar(get_status_bar_elements(config), 26),) for i in range(config['num_screens'])]
 
 # Drag floating layouts.
 mouse = [
@@ -140,10 +160,12 @@ group_assignments['Pithos'] = '9'
 
 @hook.subscribe.client_new
 def handle_new_window(window):
+    # with open('/home/sam/temp/qtile.log', 'a') as f:
+    #     print(window.window.get_wm_type(), window.window.get_wm_class(), file=f)
     if (window.window.get_wm_type()) == 'dialog' or window.window.get_wm_transient_for():
         window.floating = True
     else:
-        type = window.window.get_wm_class()[0]
+        type = window.window.get_wm_class()[1]
         if type in group_assignments:
             window.togroup(group_assignments[type])
 
