@@ -29,10 +29,10 @@ sudo apt install \
   python3-xcffib \
   python3-cairocffi \
   j4-dmenu-desktop \
+  suckless-tools \
   gmrun \
   pnmixer
 
-  # suckless-tools \
   # xmonad \
   # xmobar \
   # trayer \
