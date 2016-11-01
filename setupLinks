@@ -70,7 +70,7 @@ if __name__ == '__main__':
         Link('vim', '.config/nvim'),
         Link('pylintrc'),
         Link('bashrc'),
-        Link('sshconfig', '.ssh/config'),
+        # Link('sshconfig', '.ssh/config'),
         Link('subversionConfig', '.subversion/config'),
         Link('bin', 'bin'),
         Link('toprc'),
