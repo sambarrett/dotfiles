@@ -32,11 +32,13 @@ import subprocess
 import socket
 
 configs = {}
+configs['default'] = {'battery': False, 'num_screens': 1}
 configs['simulcra'] = {'battery': False, 'num_screens': 2}
 configs['ubik'] = {'battery': True, 'num_screens': 1}
+configs['valis'] = {'battery': False, 'num_screens': 1}
 
 hostname = socket.gethostname()
-config = configs[hostname]
+config = configs[hostname] if hostname in configs else configs['default']
 
 mod = 'mod1'
 control = 'control'
