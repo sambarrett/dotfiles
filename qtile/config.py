@@ -47,6 +47,8 @@ control = 'control'
 keys = [
     # layout management
     Key([mod], 'space', lazy.next_layout()),
+    Key([mod], 'h', lazy.layout.grow()),
+    Key([mod], 'l', lazy.layout.shrink()),
     Key([mod], 'k', lazy.layout.down()),
     Key([mod], 'Tab', lazy.layout.down()),
     Key([mod], 'j', lazy.layout.up()),
