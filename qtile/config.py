@@ -132,7 +132,7 @@ def get_status_bar_elements(conf, is_primary):
         widget.TextBox(text='Vol:', fontsize=12),
         widget.Volume(),
         widget.sep.Sep(),
-        widget.GroupBox(fontsize=12, this_current_screen_border='#FF0000', urgent_border='#00FF00'),
+        widget.GroupBox(fontsize=12, this_current_screen_border='#FF0000', urgent_border='#00FF00', disable_drag=True),
         widget.WindowName(fontsize=12),
         widget.sep.Sep(),
     ]
@@ -158,6 +158,7 @@ mouse = [
 float_rules = [
     dict(wmclass='gmrun'),
     dict(wmclass='unity-control-center'),
+    dict(wmclass='gazeb'),
 ]
 
 group_assignments = {}
