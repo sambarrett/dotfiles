@@ -8,4 +8,65 @@ Description: $1
 */
 endsnippet
 
-# vim:ft=snippets:
+snippet copy "copy"
+/* Copyright 2016, Cogitai, Inc. */
+endsnippet
+
+snippet main "main() (main)"
+int main(int argc, char *argv[]) {
+	${VISUAL}${0}
+	return 0;
+}
+endsnippet
+
+snippet once "Include header once only guard"
+#ifndef ${1:`!p
+if not snip.c:
+  def RepositoryName(filename):
+    """FullName after removing the local path to the repository.
+
+    If we have a real absolute path name here we can try to do something smart:
+    detecting the root of the checkout and truncating /path/to/checkout from
+    the name so that we get header guards that don't include things like
+    "C:\Documents and Settings\..." or "/home/username/..." in them and thus
+    people on different computers who have checked the source out to different
+    locations won't see bogus errors.
+    """
+    fullname = os.path.abspath(filename).replace('\\', '/')
+
+    if os.path.exists(fullname):
+      project_dir = os.path.dirname(fullname)
+      
+      root_dir = current_dir = os.path.dirname(fullname)
+      while current_dir != os.path.dirname(current_dir):
+        if (os.path.exists(os.path.join(current_dir, ".git")) or
+            os.path.exists(os.path.join(current_dir, ".hg")) or
+            os.path.exists(os.path.join(current_dir, ".svn"))):
+          root_dir = current_dir
+        current_dir = os.path.dirname(current_dir)
+
+      if (os.path.exists(os.path.join(root_dir, ".git")) or
+          os.path.exists(os.path.join(root_dir, ".hg")) or
+          os.path.exists(os.path.join(root_dir, ".svn"))):
+        prefix = os.path.commonprefix([root_dir, project_dir])
+        return fullname[len(prefix) + 1:]
+
+    # Don't know what to do; header guard warnings may be wrong...
+    return fullname
+
+	filename = re.sub(r'_flymake\.h$', '.h', path) # NOT snip.fn, want the path!
+  filename = re.sub(r'/\.flymake/([^/]*)$', r'/\1', filename)
+  # Replace 'c++' with 'cpp'.
+  filename = filename.replace('C++', 'cpp').replace('c++', 'cpp')
+
+  file_path_from_root = RepositoryName(filename)
+  snip.rv = re.sub(r'[^a-zA-Z0-9]', '_', file_path_from_root).upper() + '_'
+
+else:
+	snip.rv = snip.c`}
+#define $1
+
+${VISUAL}${0}
+
+#endif  // $1
+endsnippet
