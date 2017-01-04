@@ -35,7 +35,7 @@ def handleLink(linkName, source, make, sudo):
             print(err, file=sys.stderr)
             print('Continuing', file=sys.stderr)
     else:
-        if os.path.exists(link):
+        if os.path.lexists(link):
             try:
                 if sudo:
                     subprocess.check_call(['sudo', 'unlink', link])

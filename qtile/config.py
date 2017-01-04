@@ -79,6 +79,10 @@ keys = [
     Key([mod, control], 'l', lazy.spawn('gnome-screensaver-command -l')),
     # kill
     Key([mod, 'shift'], 'c', lazy.window.kill()),
+    # toggle touchpad
+    Key([mod, control], 'm', lazy.spawn('toggle-touchpad-scrolling.sh')),
+    # Key([mod, control], 'm', lazy.spawn('xterm -e "echo \"%s\"  && bash"' % lazy.mouse)),
+    
 
     # media control
     Key(['shift'], 'F3', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos'
@@ -145,13 +149,16 @@ def get_status_bar_elements(conf, is_primary):
 
 screens = [Screen(bottom=bar.Bar(get_status_bar_elements(config, i == 0), 26),) for i in range(config['num_screens'])]
 
+def noop(qtile):
+    pass
+
 # Drag floating layouts.
 mouse = [
-    Drag([mod], 'Button1', lazy.window.set_position_floating(),
-         start=lazy.window.get_position()),
-    Drag([mod], 'Button3', lazy.window.set_size_floating(),
-         start=lazy.window.get_size()),
-    Click([mod], 'Button2', lazy.window.bring_to_front())
+    Drag([mod], 'Button1', lazy.window.set_position_floating(), start=lazy.window.get_position()),
+    Drag([mod], 'Button3', lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Click([mod], 'Button2', lazy.window.bring_to_front()),
+    # Drag([], 'Button4', lazy.function(noop), focus=None),
+    # Drag([], 'Button5', lazy.function(noop), focus=None)
 ]
 
 # Windows that float by default
@@ -184,7 +191,7 @@ main = None
 follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
-floating_layout = layout.Floating(float_rules=float_rules, border_normal='#97ffff')
+floating_layout = layout.Floating(float_rules=float_rules, border_normal='#97ffff', border_focus='#FF0000')
 auto_fullscreen = True
 focus_on_window_activation = 'smart'
 

@@ -132,7 +132,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 NUM_PROCESSORS=`grep -c processor /proc/cpuinfo`
 alias make="make -j ${NUM_PROCESSORS}"
 alias vime="vim"
-alias cpplint="cpplint.py --linelength=120"
+alias cpplint="cpplint --linelength=120"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
