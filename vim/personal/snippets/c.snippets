@@ -14,30 +14,32 @@ endsnippet
 
 snippet main "main() (main)"
 int main(int argc, char *argv[]) {
-	${VISUAL}${0}
-	return 0;
+  ${VISUAL}${0}
+  return 0;
 }
 endsnippet
 
 snippet once "Include header once only guard"
 #ifndef ${1:`!p
 if not snip.c:
-	def GetHeaderGuardCPPVariable(filename):
+  def GetHeaderGuardCPPVariable(filename):
     """ Replacement for the function which determines the header guard variable, to pick one which
         matches ROS C++ Style. """
     var_parts = list()
-    head = filename
+    head = os.path.abspath(filename)
     while head:
         head, tail = os.path.split(head)
+        if tail == "":
+          break
         var_parts.insert(0, tail)
-        if head.endswith('include') or tail == "":
-            break
-    return re.sub(r'[-./\s]', '_', "_".join(var_parts)).upper()
+        if os.path.exists(os.path.join(head, '.git')):
+          break
+    return re.sub(r'[-./\s]', '_', '_'.join(var_parts)).upper() + '_'
 
   snip.rv = GetHeaderGuardCPPVariable(path)
 
 else:
-	snip.rv = snip.c`}
+  snip.rv = snip.c`}
 #define $1
 
 ${VISUAL}${0}

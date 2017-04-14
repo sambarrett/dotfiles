@@ -33,6 +33,7 @@ set autoindent              " Put my cursor in the right place when I start a ne
 set modeline
 filetype plugin indent on   " Rely on file plugins to handle indenting
 
+
 autocmd Filetype python setlocal expandtab ts=4 sw=4 sts=4
 autocmd Filetype cmake setlocal commentstring=#\ %s
 autocmd Filetype cpp setlocal commentstring=//\ %s
@@ -72,6 +73,8 @@ func! DeleteTrailingWS()
   let &hlsearch=oldhlsearch
 endfunc
 noremap <leader>w :call DeleteTrailingWS()<CR>
+set list
+set listchars=eol:\|,tab:→\ ,trail:•,extends:>,precedes:<
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -79,9 +82,28 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_python_python_exec = '/usr/bin/python3'
-let g:syntastic_python_flake8_args = '--max-line-length=120'
+let g:syntastic_python_flake8_args = '--max-line-length=120 --copyright-check --copyright-regexp="Copyright\s+(\([Cc]\)\s+)?\d{4}\s*,?\s+[.A-Za-z, ]+"'
 let g:syntastic_python_checkers = ['flake8']
 "let g:pymode_python = 'python3'
+
+let g:syntastic_cpp_checkers = ['cpplint']
+let g:syntastic_cpp_cpplint_exec = 'cpplint'
+let g:syntastic_cpp_cpplint_args = '--linelength=120 --filter=-runtime/references,-build/include_order'
+let g:syntastic_cpp_remove_include_errors = 1
+let g:syntastic_cpp_check_header = 1
+
+
+" workaround for cpplint for finding the first repository, instead of the
+" toplevel one that it likes
+function! FindRepository(path)
+  let l:git_repo = substitute(system("cd " . a:path . " && git rev-parse --show-toplevel"), '\n', '', '')
+  return " --repository " . l:git_repo
+endfunction
+
+autocmd Filetype cpp let b:syntastic_cpp_cpplint_args = 
+      \ get(g:, 'syntastic_cpp_cpplint_args', '') .
+      \ FindRepository(expand('%:p:h'))
+
 
 let g:UltiSnipsSnippetDirectories = ["UltiSnips","personal/snippets"]
 let g:UltiSnipsExpandTrigger = "<tab>"

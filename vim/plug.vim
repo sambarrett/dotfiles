@@ -18,7 +18,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 
 " code linting
-Plug 'scrooloose/syntastic', { 'for': ['php', 'python', 'javascript', 'css'] }
+Plug 'scrooloose/syntastic', { 'for': ['php', 'python', 'javascript', 'css', 'cpp'] }
 
 "Plug 'klen/python-mode', { 'for': ['python'] }
 
