@@ -21,11 +21,13 @@ eog $filename
 echo -n "Use new image? "
 read ans
 
-if [ $ans == "y" -o $ans == "yes" ]; then
-  convert chblank.png -resize $size tmp_resize_chblank.png
-  composite -gravity south tmp_resize_chblank.png $filename calvin.jpg
-  rm tmp_resize_chblank.png
-  feh --bg-scale calvin.jpg
+if [ -n "$ans" ]; then
+  if [ $ans == "y" -o $ans == "yes" ]; then
+    convert chblank.png -resize $size tmp_resize_chblank.png
+    composite -gravity south tmp_resize_chblank.png $filename calvin.jpg
+    rm tmp_resize_chblank.png
+    feh --bg-scale calvin.jpg
+  fi
 fi
 rm $filename
 
