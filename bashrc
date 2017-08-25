@@ -133,6 +133,9 @@ NUM_PROCESSORS=`grep -c processor /proc/cpuinfo`
 alias make="make -j ${NUM_PROCESSORS}"
 alias vime="vim"
 alias cpplint="cpplint --linelength=120"
+if [ `date '+%m%d'` == 0401 ]; then
+    alias cat='lolcat'
+fi
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
