@@ -10,7 +10,9 @@
   tool = meld
 [difftool]
   prompt = false
+[merge]
+  tool  = meld
 [core]
-	excludesfile = ~/.gitignore
+  excludesfile = ~/.gitignore
 [push]
-	default = simple
+  default = simple

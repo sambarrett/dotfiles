@@ -55,7 +55,7 @@ if __name__ == '__main__':
     if opts.action == Action.edit:
         editByDate(opts.dir, opts.base, datetime.date.today())
     elif opts.action == Action.list:
-        for filename in getFilesMatchingPattern(opts.dir, opts.base):
+        for filename in sorted(getFilesMatchingPattern(opts.dir, opts.base)):
             print(filename)
     elif opts.action == Action.last:
         lastDate = datetime.date(year=2000, month=1, day=1)

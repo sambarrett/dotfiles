@@ -166,7 +166,9 @@ float_rules = [
     dict(wmclass='gmrun'),
     dict(wmclass='unity-control-center'),
     dict(wmclass='gazeb'),
-    dict(wmclass='rqt_gui')
+    dict(wmclass='rqt_gui'),
+    dict(wmclass='Matplotlib'),
+    dict(wmclass='mountain_car_human_controlled.py'),
 ]
 
 group_assignments = {}

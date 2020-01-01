@@ -43,7 +43,7 @@ if [ -n "$force_color_prompt" ]; then
     color_prompt=
   fi
 fi
-  
+
 RED='\e[1;31m'
 GREEN='\e[1;32m'
 YELLOW='\e[1;33m'
@@ -97,7 +97,14 @@ function PromptExitCode()
   MYPWD=`pwd | sed 's/\/home\/sam/\~/'`
   find_git_branch
   find_git_dirty
-  PROMPT="$USERNAME${MYPWD}${git_branch}${git_dirty}${RET_PROMPT}\$ "
+  if [ -z "${VIRTUAL_ENV}" ]
+  then
+    ENV_PROMPT=""
+  else
+    venv_path=`echo ${VIRTUAL_ENV} | sed 's/\/home\/sam/\~/'`
+    ENV_PROMPT="(${venv_path})"
+  fi
+  PROMPT="$USERNAME${MYPWD}${git_branch}${git_dirty}${ENV_PROMPT}${RET_PROMPT}\$ "
   PS1="${HOST}\[\033];${MYPWD}\007\]${PROMPT}"
 }
 case "$TERM" in
@@ -133,6 +140,8 @@ NUM_PROCESSORS=`grep -c processor /proc/cpuinfo`
 alias make="make -j ${NUM_PROCESSORS}"
 alias vime="vim"
 alias cpplint="cpplint --linelength=120"
+
+export EDITOR="vim"
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like

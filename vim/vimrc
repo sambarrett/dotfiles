@@ -74,7 +74,20 @@ func! DeleteTrailingWS()
 endfunc
 noremap <leader>w :call DeleteTrailingWS()<CR>
 set list
-set listchars=eol:\|,tab:→\ ,trail:•,extends:>,precedes:<
+" set listchars=eol:\|,tab:→\ ,trail:•,extends:>,precedes:<
+set listchars=tab:→\ ,trail:•,extends:>,precedes:<
+
+" function to convert lists to confluence formating
+function ToConfluence()
+  let oldhlsearch=&hlsearch
+  exe "normal mz"
+  %s/        -/        ****/ge
+  %s/      -/      ***/ge
+  %s/    -/    **/ge
+  %s/  -/  */ge
+  exe "normal `z"
+  let &hlsearch=oldhlsearch
+endfunction
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
