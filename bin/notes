@@ -6,37 +6,50 @@ import datetime
 from enum import Enum
 import os
 import re
+import shutil
 import subprocess
 import sys
 
 
 class Action(Enum):
-    edit = 1
-    list = 2
-    last = 3
+    EDIT = 1
+    LIST = 2
+    LAST = 3
 
 
-def editByDate(dir, base, date):
+def edit_by_date(dir, base, date, interview):
     if base is None:
         print('Must specify base', file=sys.stderr)
         sys.exit(2)
-    dateStr = date.strftime('%Y-%m-%d')
-    filename = os.path.join(dir, '%s-%s.txt' % (dateStr, base))
-    editByFilename(filename)
+    date_str = date.strftime('%Y-%m-%d')
+    filename = os.path.join(dir, '%s-%s.txt' % (date_str, base))
+    if interview and not os.path.exists(filename):
+        base_filename = os.path.join(dir, 'base.txt')
+        if not os.path.exists(base_filename):
+            print('Base interview filename not found, expected {}'.format(base_filename), file=sys.stderr)
+            sys.exit(2)
+        with open(base_filename, 'r') as f:
+            contents = f.read()
+        candidate = base.replace('-', ' ').replace('_', ' ').title()
+        contents = contents.replace('Candidate:', 'Candidate: {}'.format(candidate))
+        contents = contents.replace('Date:', 'Date: {}'.format(date_str))
+        with open(filename, 'w') as f:
+            f.write(contents)
+    edit_by_filename(filename)
 
 
-def editByFilename(filename):
+def edit_by_filename(filename):
     subprocess.call(['vim', filename])
 
 
-def validDir(dir):
+def valid_dir(dir):
     if os.path.isdir(dir):
         return dir
     else:
         raise Exception('Not a valid dir: {}'.format(dir))
 
 
-def getFilesMatchingPattern(dir, base):
+def get_files_matching_pattern(dir, base):
     prefix = '\d+-\d+-\d+-'
     pattern = prefix + (opts.base if base is not None else '.*')
     pattern = re.compile(pattern)
@@ -46,32 +59,37 @@ def getFilesMatchingPattern(dir, base):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('base', nargs='?', default=None)
-    parser.add_argument('-d', '--dir', action='store', type=validDir, default=os.path.expanduser('~/notes'))
-    parser.add_argument('-a', '--action', choices=list(Action), default=Action.edit, type=lambda x: Action[x])
+    parser.add_argument('-d', '--dir', action='store', type=valid_dir, default=None)
+    parser.add_argument('-a', '--action', choices=list(Action), default=Action.EDIT, type=lambda x: Action[x.lower()])
+    parser.add_argument('--interview', action='store_true', default=False)
     for a in Action:
         parser.add_argument('--{}'.format(a.name), dest='action', action='store_const', const=a)
     opts = parser.parse_args()
+    if opts.dir is None:
+        opts.dir = os.path.expanduser('~/notes')
+        if opts.interview:
+            opts.dir = os.path.join(opts.dir, 'interviews')
 
-    if opts.action == Action.edit:
-        editByDate(opts.dir, opts.base, datetime.date.today())
-    elif opts.action == Action.list:
-        for filename in sorted(getFilesMatchingPattern(opts.dir, opts.base)):
+    if opts.action == Action.EDIT:
+        edit_by_date(opts.dir, opts.base, datetime.date.today(), opts.interview)
+    elif opts.action == Action.LIST:
+        for filename in sorted(get_files_matching_pattern(opts.dir, opts.base)):
             print(filename)
-    elif opts.action == Action.last:
-        lastDate = datetime.date(year=2000, month=1, day=1)
-        lastFilename = None
-        for filename in getFilesMatchingPattern(opts.dir, opts.base):
-            dateStr = '-'.join(filename.split('-')[:3])
-            d = datetime.datetime.strptime(dateStr, '%Y-%m-%d').date()
-            if d > lastDate:
-                lastDate = d
-                lastFilename = filename
-        if lastFilename is None:
+    elif opts.action == Action.LAST:
+        last_date = datetime.date(year=2000, month=1, day=1)
+        last_filename = None
+        for filename in get_files_matching_pattern(opts.dir, opts.base):
+            date_str = '-'.join(filename.split('-')[:3])
+            d = datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
+            if d > last_date:
+                last_date = d
+                last_filename = filename
+        if last_filename is None:
             print('No filename found')
             sys.exit(3)
-        res = input('edit {} (Y/n)? '.format(lastFilename))
+        res = input('edit {} (Y/n)? '.format(last_filename))
         if res.lower() in ['', 'y', 'yes']:
-            editByFilename(os.path.join(opts.dir, lastFilename))
+            edit_by_filename(os.path.join(opts.dir, last_filename))
         else:
             print('aborting')
             sys.exit(0)
