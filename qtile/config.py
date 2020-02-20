@@ -82,18 +82,23 @@ keys = [
     # toggle touchpad
     Key([mod, control], 'm', lazy.spawn('toggle-touchpad-scrolling.sh')),
     # Key([mod, control], 'm', lazy.spawn('xterm -e "echo \"%s\"  && bash"' % lazy.mouse)),
-    
 
     # media control
-    Key(['shift'], 'F3', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos'
-        ' /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Prev')),
-    Key(['shift'], 'F4', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos'
-        ' /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next')),
+    # Key(['shift'], 'F3', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos'
+    #     ' /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Prev')),
+    # Key(['shift'], 'F4', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos'
+    #     ' /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next')),
+    # Key(['shift'], 'F5', lazy.spawn('amixer set Master 4-')),
+    # Key(['shift'], 'F6', lazy.spawn('amixer set Master 4+')),
+    # Key(['shift'], 'F7', lazy.spawn('amixer -D pulse set Master 1+ toggle')),
+    # Key(['shift'], 'F8', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos'
+    #     ' /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause')),
+    Key(['shift'], 'F3', lazy.spawn('to_all_media_players org.mpris.MediaPlayer2.Player.Prev')),
+    Key(['shift'], 'F4', lazy.spawn('to_all_media_players org.mpris.MediaPlayer2.Player.Next')),
     Key(['shift'], 'F5', lazy.spawn('amixer set Master 4-')),
     Key(['shift'], 'F6', lazy.spawn('amixer set Master 4+')),
     Key(['shift'], 'F7', lazy.spawn('amixer -D pulse set Master 1+ toggle')),
-    Key(['shift'], 'F8', lazy.spawn('dbus-send --print-reply --dest=org.mpris.MediaPlayer2.pithos'
-        ' /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause')),
+    Key(['shift'], 'F8', lazy.spawn('to_all_media_players org.mpris.MediaPlayer2.Player.PlayPause')),
 ]
 
 groups = [Group(i) for i in '123456789']

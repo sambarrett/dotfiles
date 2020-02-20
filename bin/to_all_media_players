@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+
+import re
+import subprocess
+import sys
+
+
+assert len(sys.argv) == 2
+cmd = sys.argv[1]
+p = subprocess.run(['dbus-send', '--session', '--dest=org.freedesktop.DBus', '--type=method_call', '--print-reply', '/org/freedesktop/DBus', 'org.freedesktop.DBus.ListNames'], stdout=subprocess.PIPE)
+output = p.stdout.decode()
+dests = re.findall('org\.mpris\.[^"]*', output)
+for dest in dests:
+    subprocess.run(['dbus-send', '--print-reply', '--dest=' + dest, '/org/mpris/MediaPlayer2', cmd])
