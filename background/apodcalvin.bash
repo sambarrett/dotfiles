@@ -7,7 +7,7 @@ prefix=ch_
 if [ $# -gt 0 ]; then
   url=$1
 fi
-imageurl=`curl $url 2> /dev/null | grep -i IMG | cut -d\" -f2` 
+imageurl=`curl $url 2> /dev/null | grep -i "IMG SRC" | cut -d\" -f2` 
 filename=`echo $imageurl | cut -d/ -f3`
 if [ -z $filename ]; then
   echo "Problem finding filename"
