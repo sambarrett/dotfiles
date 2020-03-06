@@ -63,7 +63,7 @@ if __name__ == '__main__':
     parser.add_argument('-a', '--action', choices=list(Action), default=Action.EDIT, type=lambda x: Action[x.lower()])
     parser.add_argument('--interview', action='store_true', default=False)
     for a in Action:
-        parser.add_argument('--{}'.format(a.name), dest='action', action='store_const', const=a)
+        parser.add_argument('--{}'.format(a.name.lower()), dest='action', action='store_const', const=a)
     opts = parser.parse_args()
     if opts.dir is None:
         opts.dir = os.path.expanduser('~/notes')
