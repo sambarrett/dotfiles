@@ -31,6 +31,22 @@ import os
 import subprocess
 import socket
 
+
+@hook.subscribe.startup
+def dbus_register():
+    id = os.environ.get('DESKTOP_AUTOSTART_ID')
+    if not id:
+        return
+    subprocess.Popen(['dbus-send',
+                      '--session',
+                      '--print-reply',
+                      '--dest=org.gnome.SessionManager',
+                      '/org/gnome/SessionManager',
+                      'org.gnome.SessionManager.RegisterClient',
+                      'string:qtile',
+                      'string:' + id])
+
+
 configs = {}
 configs['default'] = {'battery': False, 'num_screens': 1}
 configs['simulcra'] = {'battery': False, 'num_screens': 2}
@@ -76,7 +92,7 @@ keys = [
     Key([mod, control], 'f', lazy.spawn('firefox')),
     Key([mod], 'p', lazy.spawn('j4-dmenu-desktop')),
     Key([mod, 'shift'], 'p', lazy.spawn('gmrun')),
-    Key([mod, control], 'l', lazy.spawn('gnome-screensaver-command -l')),
+    Key([mod, control], 'l', lazy.spawn('xscreensaver-command -l')),
     # kill
     Key([mod, 'shift'], 'c', lazy.window.kill()),
     # toggle touchpad
@@ -101,13 +117,19 @@ keys = [
     Key(['shift'], 'F8', lazy.spawn('to_all_media_players org.mpris.MediaPlayer2.Player.PlayPause')),
 ]
 
-groups = [Group(i) for i in '123456789']
+groups = [Group(i) for i in '1234567890[]']
 
 for i in groups:
+    if i.name == '[':
+        key = 'bracketleft'
+    elif i.name == ']':
+        key = 'bracketright'
+    else:
+        key = i.name
     # mod1 + letter of group = switch to group
-    keys.append(Key([mod], i.name, lazy.group[i.name].toscreen()))
+    keys.append(Key([mod], key, lazy.group[i.name].toscreen()))
     # mod1 + shift + letter of group = switch to & move focused window to group
-    keys.append(Key([mod, 'shift'], i.name, lazy.window.togroup(i.name)))
+    keys.append(Key([mod, 'shift'], key, lazy.window.togroup(i.name)))
 
 layouts = [
     layout.MonadTall(border_normal='#333333'),
@@ -176,21 +198,31 @@ float_rules = [
     dict(wmclass='mountain_car_human_controlled.py'),
 ]
 
-group_assignments = {}
-group_assignments['Slack'] = '8'
-group_assignments['Pithos'] = '9'
+wm_class_to_group = {}
+wm_class_to_group['slack'] = '8'
+wm_class_to_group['pithos'] = '9'
+wm_class_to_group['open.spotify.com'] = '9'
 
 
 @hook.subscribe.client_new
 def handle_new_window(window):
     # with open('/home/sam/temp/qtile.log', 'a') as f:
-    #     print(window.window.get_wm_type(), window.window.get_wm_class(), file=f)
+    #     print('new', window.window.get_wm_type(), window.window.get_wm_class(), window.name, file=f)
     if (window.window.get_wm_type()) == 'dialog' or window.window.get_wm_transient_for():
         window.floating = True
     else:
-        type = window.window.get_wm_class()[1]
-        if type in group_assignments:
-            window.togroup(group_assignments[type])
+        wm_class = window.window.get_wm_class()[0]
+        if wm_class in wm_class_to_group:
+            window.togroup(wm_class_to_group[wm_class])
+
+
+# @hook.subscribe.client_name_updated
+# def handle_name_update(window):
+#     with open('/home/sam/temp/qtile.log', 'a') as f:
+#         print('updated', window.window.get_wm_type(), window.window.get_wm_class(), window.name, file=f)
+#     name = window.name
+#     if name in wm_name_to_group:
+#         window.togroup(wm_name_to_group[name])
 
 
 dgroups_key_binder = None

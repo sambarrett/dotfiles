@@ -22,6 +22,9 @@ def edit_by_date(dir, base, date, interview):
         print('Must specify base', file=sys.stderr)
         sys.exit(2)
     date_str = date.strftime('%Y-%m-%d')
+    if '_' in base:
+        print('Replacing "_" with "-"')
+        base = base.replace('_', '-')
     filename = os.path.join(dir, '%s-%s.txt' % (date_str, base))
     if interview and not os.path.exists(filename):
         base_filename = os.path.join(dir, 'base.txt')

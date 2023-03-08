@@ -1,6 +1,6 @@
 [user]
   name = Samuel Barrett
-  email = sam@cogitai.com
+  email = Samuel.Barrett@sony.com
 [alias]
   st = status
   revert = checkout
@@ -16,3 +16,8 @@
   excludesfile = ~/.gitignore
 [push]
   default = simple
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

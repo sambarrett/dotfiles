@@ -20,8 +20,8 @@ highlight Statement  term=bold ctermfg=yellow      cterm=bold guifg=yellow      
 highlight Operator   term=bold ctermfg=white       cterm=bold guifg=white       gui=bold
 highlight PreProc    term=bold ctermfg=magenta     cterm=none guifg=magenta     gui=none
 highlight Type       term=bold ctermfg=darkgreen   cterm=none guifg=magenta     gui=bold
-highlight String     term=none ctermfg=darkred     cterm=none guifg=red         gui=none
-highlight Number     term=none ctermfg=darkred     cterm=none guifg=red         gui=none
+highlight String     term=none ctermfg=9     cterm=none guifg=red         gui=none
+highlight Number     term=none ctermfg=9     cterm=none guifg=red         gui=none
 highlight SpellBad   term=none ctermbg=darkmagenta cterm=none gui=undercurl     guibg=darkmagenta
 " vim:ts=2:sw=2:et
 

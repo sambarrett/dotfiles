@@ -1,4 +1,7 @@
 set nocompatible
+set encoding=utf-8
+scriptencoding utf-8
+
 
 " use the Plug plugin manager, all plugins will be included in that config file
 source $HOME/.vim/plug.vim
@@ -12,6 +15,8 @@ command! CD cd %:p:h
 set mouse+=a
 
 nnoremap <leader><space> :nohlsearch<cr>
+
+set nojoinspaces  " only a single space after periods these days :(
 
 " Colors
 syntax enable               " This has to come after colorcolumn in order to draw it.
@@ -75,6 +80,7 @@ endfunc
 noremap <leader>w :call DeleteTrailingWS()<CR>
 set list
 " set listchars=eol:\|,tab:→\ ,trail:•,extends:>,precedes:<
+" set listchars=tab:→\ ,trail:•,extends:>,precedes:<
 set listchars=tab:→\ ,trail:•,extends:>,precedes:<
 
 " function to convert lists to confluence formating
@@ -104,6 +110,9 @@ let g:syntastic_cpp_cpplint_exec = 'cpplint'
 let g:syntastic_cpp_cpplint_args = '--linelength=120 --filter=-runtime/references,-build/include_order'
 let g:syntastic_cpp_remove_include_errors = 1
 let g:syntastic_cpp_check_header = 1
+
+
+let g:syntastic_html_checkers=['']
 
 
 " workaround for cpplint for finding the first repository, instead of the
